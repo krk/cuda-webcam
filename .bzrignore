@@ -2,3 +2,10 @@ Debug
 *.pdb
 ipch
 HelloOpenCV.opensdf
+Release
+*.cd
+<<<<<<< HEAD
+=======
+doxygen
+HelloOpenCV.sdf
+>>>>>>> ef041e7... sdf dosyasi silindi.

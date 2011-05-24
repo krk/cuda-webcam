@@ -2,7 +2,7 @@
 
 #include "cudaCommon.h"
 
-void deviceInvertLaunch(
+void deviceBlur1Launch(
 	float *d_Image,
 	int width,
 	int height

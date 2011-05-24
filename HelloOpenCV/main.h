@@ -7,6 +7,12 @@
 
 #include "cudaCommon.h"
 
-#include "InvertProcessor.h"
+#include "SingleCudaProcessor.h"
+#include "CpuInvertFilter.h"
+
+// CUDA kernel launcherlar
+
+#include "invert.h"
+#include "blur1.h"
 
 void ProcessFrame(IplImage* videoFrame);

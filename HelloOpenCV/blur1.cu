@@ -5,7 +5,7 @@
 #define ENABLE_TIMING_CODE 0
 
 __global__
-void gpuInvert(
+void gpuBlur1(
 	float* image,
 	int width,
 	int height
@@ -15,13 +15,15 @@ void gpuInvert(
 	int k = blockIdx.y * BLOCK_SIZE + threadIdx.y;
 
 	int cIdx = (i*width + k) * 3;
+	int cIdxRight = (i*width + k + 1) * 3;
+	int cIdxDown = ((i+1)*width + k) * 3;
 
-	*( image + cIdx ) = 1 - *( image + cIdx );
-	*( image + cIdx + 1 ) = 1 - *( image + cIdx + 1 );
-	*( image + cIdx + 2 ) = 1 - *( image + cIdx + 2 );
+	*( image + cIdx ) = (*( image + cIdx ) + *( image + cIdxRight ) + *( image + cIdxDown )) / 3;
+	*( image + cIdx + 1 ) = 0;//*( image + cIdx + 1 );
+	*( image + cIdx + 2 ) = 0;//*( image + cIdx + 2 );
 }
 
-void deviceInvertLaunch(
+void deviceBlur1Launch(
 	float *d_Image,
 	int width,
 	int height
@@ -40,7 +42,7 @@ void deviceInvertLaunch(
 
 #endif
 
-    gpuInvert<<< dimGrid, dimBlock >>>( d_Image, width, height);
+    gpuBlur1<<< dimGrid, dimBlock >>>( d_Image, width, height);
 
 #if ENABLE_TIMING_CODE
 	cudaEventRecord(stop, 0);
@@ -51,7 +53,7 @@ void deviceInvertLaunch(
     // block until the device has completed
     cudaThreadSynchronize();
 	
-	printf("gpuInvert kernel time: %.3f ms\n", elapsedTime);
+	printf("kernel time: %.3f ms\n", elapsedTime);
 #endif
 
 	cudaThreadSynchronize();

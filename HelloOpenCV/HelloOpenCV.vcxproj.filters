@@ -27,7 +27,13 @@
     <ClInclude Include="SingleImageProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InvertProcessor.h">
+    <ClInclude Include="SingleCudaProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CpuInvertFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="blur1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -43,5 +49,11 @@
     <CudaCompile Include="invert.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
+    <CudaCompile Include="blur1.cu">
+      <Filter>Source Files</Filter>
+    </CudaCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

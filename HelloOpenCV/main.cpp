@@ -34,11 +34,11 @@ int main( int argc, char** argv )
 	
 	IplImage* resizedImage = cvCreateImage(cvSize(640, 480), videoFrame->depth, videoFrame->nChannels);
 
-	InvertProcessor myProcessor;
+	//ISingleImageProcessor* myProcessor = new SingleCudaProcessor(deviceInvertLaunch);
+	//ISingleImageProcessor* myProcessor = new CpuInvertFilter();
+	ISingleImageProcessor* myProcessor = new SingleCudaProcessor(deviceBlur1Launch);
 
-	myProcessor = InvertProcessor();
-
-	myProcessor.InitProcessing(videoFrame->width, videoFrame->height);
+	myProcessor->InitProcessing(videoFrame->width, videoFrame->height);
 	
 	// q tuþuna basana kadar dön.
 	while( key != 'q' )
@@ -52,28 +52,19 @@ int main( int argc, char** argv )
 		if( !resizedImage )
 			break;
 
-		//ProcessFrame(resizedImage);
-		myProcessor.ProcessImage(videoFrame->imageData);
+		myProcessor->ProcessImage(resizedImage->imageData);
 
 		// Negatif görüntüyü pencerede göster.
 		cvShowImage( "MainVideo", resizedImage );
 
-		key = cvWaitKey( 10 ); // 10ms tuþ için bekle.
+		key = cvWaitKey( 1 ); // 10ms tuþ için bekle.
 	}
 
 	cvDestroyAllWindows(); // yarattýðýmýz pencereyi yokeder.
 
 	cvReleaseCapture( &capture ); // Kameranýn tutacaðýný býrakýr.
 
-	myProcessor.ReleaseProcessing();
+	myProcessor->ReleaseProcessing();
 
 	exit( EXIT_SUCCESS );
-}
-
-inline
-void ProcessFrame(IplImage* videoFrame)
-{
-	// Karenin tüm pixellerini ters çevir, negatif resim efekti.
-	// Not: Görüntü tipinin BGR olduðu varsayýlmýþtýr. Normalde kontrol edilmelidir.
-	//deviceInvert(videoFrame->imageData, videoFrame->width, videoFrame->height);
 }
