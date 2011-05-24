@@ -1,0 +1,4 @@
+Debug
+*.pdb
+ipch
+HelloOpenCV.opensdf
