@@ -10,9 +10,13 @@
 #include "SingleCudaProcessor.h"
 #include "CpuInvertFilter.h"
 
+#include "SingleCudaTexProcessor.h"
+
 // CUDA kernel launcherlar
 
 #include "invert.h"
 #include "blur1.h"
+
+#include "texInvert.h"
 
 void ProcessFrame(IplImage* videoFrame);

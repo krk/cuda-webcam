@@ -2,7 +2,7 @@
 
 #define BLOCK_SIZE (32)
 
-#define ENABLE_TIMING_CODE 0
+#define ENABLE_TIMING_CODE 1
 
 __global__
 void gpuBlur1(
@@ -11,16 +11,62 @@ void gpuBlur1(
 	int height
 	)
 {
-	int i = blockIdx.x * BLOCK_SIZE + threadIdx.x;
-	int k = blockIdx.y * BLOCK_SIZE + threadIdx.y;
+	int row = blockIdx.y * BLOCK_SIZE + threadIdx.y; // satýr No.
 
-	int cIdx = (i*width + k) * 3;
-	int cIdxRight = (i*width + k + 1) * 3;
-	int cIdxDown = ((i+1)*width + k) * 3;
+	int col = blockIdx.x * BLOCK_SIZE + threadIdx.x; // sütun No.
 
-	*( image + cIdx ) = (*( image + cIdx ) + *( image + cIdxRight ) + *( image + cIdxDown )) / 3;
-	*( image + cIdx + 1 ) = 0;//*( image + cIdx + 1 );
-	*( image + cIdx + 2 ) = 0;//*( image + cIdx + 2 );
+	int cIdx = ( row * width + col ) * 3; // 3 ile çarpým RGB için, linearIndex.
+
+	/*
+	       *( image + linearIndex ): Blue, in [0, 1]
+		   *( image + linearIndex + 1 ): Green, in [0, 1]
+		   *( image + linearIndex + 2 ): Red, in [0, 1]
+	*/
+
+	__shared__ float smBlockB[BLOCK_SIZE][BLOCK_SIZE];
+	__shared__ float smBlockG[BLOCK_SIZE][BLOCK_SIZE];
+	__shared__ float smBlockR[BLOCK_SIZE][BLOCK_SIZE];
+
+	smBlockB[threadIdx.x][threadIdx.y] = image[ cIdx ];
+	smBlockG[threadIdx.x][threadIdx.y] = image[ cIdx + 1 ];
+	smBlockR[threadIdx.x][threadIdx.y] = image[ cIdx + 2 ];
+
+	__syncthreads();
+	
+	for(int i = 0; i < BLOCK_SIZE; i++)
+	{
+		__syncthreads();
+
+		for(int j = 0; j < BLOCK_SIZE - 1; j++)
+		{
+			smBlockB[i][j] = abs(smBlockB[i][j] - smBlockB[i][j + 1]);
+			smBlockG[i][j] = abs(smBlockG[i][j] - smBlockG[i][j + 1]);
+			smBlockR[i][j] = abs(smBlockR[i][j] - smBlockR[i][j + 1]);
+		}
+
+	__syncthreads();	
+
+
+		for(int j = BLOCK_SIZE - 1; j < BLOCK_SIZE; j++)
+		{
+			smBlockB[i][j] = 0;
+			smBlockG[i][j] = 0;
+			smBlockR[i][j] = 0;
+		}
+	}
+	
+	__syncthreads();	
+	
+	image[ cIdx ]     =	smBlockB[threadIdx.x][threadIdx.y];
+	image[ cIdx + 1 ] = smBlockG[threadIdx.x][threadIdx.y];
+	image[ cIdx + 2 ] = smBlockR[threadIdx.x][threadIdx.y];
+		
+	
+	//image[ cIdxRight + 2 ] = 0;
+
+	/**( image + cIdx ) = abs((*( image + cIdx ) - *( image + cIdxRight )));
+	*( image + cIdx + 1 ) = abs((*( image + cIdx + 1 ) - *( image + cIdxRight + 1 )));
+	*( image + cIdx + 2 ) = abs((*( image + cIdx + 2 ) - *( image + cIdxRight + 2 )));*/
 }
 
 void deviceBlur1Launch(
@@ -31,7 +77,7 @@ void deviceBlur1Launch(
 {
 	 // launch kernel
 	dim3 dimBlock( BLOCK_SIZE, BLOCK_SIZE );
-    dim3 dimGrid( height / dimBlock.x, width / dimBlock.y );
+    dim3 dimGrid( width / dimBlock.x, height / dimBlock.y );
 
 #if ENABLE_TIMING_CODE
 
@@ -41,9 +87,9 @@ void deviceBlur1Launch(
 	cudaEventRecord(start, 0);
 
 #endif
-
+	
     gpuBlur1<<< dimGrid, dimBlock >>>( d_Image, width, height);
-
+	
 #if ENABLE_TIMING_CODE
 	cudaEventRecord(stop, 0);
 	cudaEventSynchronize(stop);

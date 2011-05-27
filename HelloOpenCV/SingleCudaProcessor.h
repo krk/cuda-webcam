@@ -1,7 +1,8 @@
+#include "cudaCommon.h"
+
 #include "SingleImageProcessor.h"
 
 #pragma once
-#define BLOCK_SIZE (16)
 
 inline
 unsigned char satchar(float val);

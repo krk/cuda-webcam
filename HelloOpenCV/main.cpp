@@ -58,6 +58,7 @@ int main( int argc, char** argv )
 		cvShowImage( "MainVideo", resizedImage );
 
 		key = cvWaitKey( 1 ); // 10ms tuþ için bekle.
+
 	}
 
 	cvDestroyAllWindows(); // yarattýðýmýz pencereyi yokeder.
@@ -66,5 +67,7 @@ int main( int argc, char** argv )
 
 	myProcessor->ReleaseProcessing();
 
-	exit( EXIT_SUCCESS );
+	cudaThreadExit();
+
+	//exit( EXIT_SUCCESS );
 }

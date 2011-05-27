@@ -94,7 +94,16 @@
     <ClInclude Include="SingleCudaProcessor.h">
       <FileType>CppHeader</FileType>
     </ClInclude>
+    <ClInclude Include="texInvert.h" />
+    <CudaCompile Include="texInvert.cu">
+      <FileType>CppHeader</FileType>
+    </CudaCompile>
+    <CudaCompile Include="SingleCudaTexProcessor.cu" />
+    <ClInclude Include="SingleCudaTexProcessor.h" />
     <ClInclude Include="SingleImageProcessor.h" />
+    <CudaCompile Include="TextureHeader.cu">
+      <FileType>CppHeader</FileType>
+    </CudaCompile>
     <CudaCompile Include="blur1.cu">
       <FileType>CppHeader</FileType>
     </CudaCompile>
@@ -110,9 +119,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
