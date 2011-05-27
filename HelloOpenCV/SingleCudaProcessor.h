@@ -9,7 +9,7 @@ unsigned char satchar(float val);
 
 class SingleCudaProcessor : public SingleImageProcessor
 {
-private:
+protected:
 	float* h_Image;
 	float* d_Image;
 

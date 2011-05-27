@@ -5,7 +5,7 @@
 #define ENABLE_TIMING_CODE 1
 
 __global__
-void gpuBlur1(
+void gpuTileFlip(
 	float* image,
 	int width,
 	int height
@@ -31,35 +31,11 @@ void gpuBlur1(
 	smBlockG[threadIdx.x][threadIdx.y] = image[ cIdx + 1 ];
 	smBlockR[threadIdx.x][threadIdx.y] = image[ cIdx + 2 ];
 
-	__syncthreads();
-	
-	for(int i = 0; i < BLOCK_SIZE; i++)
-	{
-		__syncthreads();
-
-		for(int j = 0; j < BLOCK_SIZE - 1; j++)
-		{
-			smBlockB[i][j] = abs(smBlockB[i][j] - smBlockB[i][j + 1]);
-			smBlockG[i][j] = abs(smBlockG[i][j] - smBlockG[i][j + 1]);
-			smBlockR[i][j] = abs(smBlockR[i][j] - smBlockR[i][j + 1]);
-		}
-
-	__syncthreads();	
-
-
-		for(int j = BLOCK_SIZE - 1; j < BLOCK_SIZE; j++)
-		{
-			smBlockB[i][j] = 0;
-			smBlockG[i][j] = 0;
-			smBlockR[i][j] = 0;
-		}
-	}
-	
 	__syncthreads();	
 	
-	image[ cIdx ]     =	smBlockB[threadIdx.x][threadIdx.y];
-	image[ cIdx + 1 ] = smBlockG[threadIdx.x][threadIdx.y];
-	image[ cIdx + 2 ] = smBlockR[threadIdx.x][threadIdx.y];
+	image[ cIdx ]     =	smBlockB[threadIdx.y][threadIdx.x];
+	image[ cIdx + 1 ] = smBlockG[threadIdx.y][threadIdx.x];
+	image[ cIdx + 2 ] = smBlockR[threadIdx.y][threadIdx.x];
 		
 	
 	//image[ cIdxRight + 2 ] = 0;
@@ -69,7 +45,7 @@ void gpuBlur1(
 	*( image + cIdx + 2 ) = abs((*( image + cIdx + 2 ) - *( image + cIdxRight + 2 )));*/
 }
 
-void deviceBlur1Launch(
+void deviceTileFlipLaunch(
 	float *d_Image,
 	int width,
 	int height
@@ -88,7 +64,7 @@ void deviceBlur1Launch(
 
 #endif
 	
-    gpuBlur1<<< dimGrid, dimBlock >>>( d_Image, width, height);
+    gpuTileFlip<<< dimGrid, dimBlock >>>( d_Image, width, height);
 	
 #if ENABLE_TIMING_CODE
 	cudaEventRecord(stop, 0);

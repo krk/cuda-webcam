@@ -36,7 +36,9 @@ int main( int argc, char** argv )
 
 	//ISingleImageProcessor* myProcessor = new SingleCudaProcessor(deviceInvertLaunch);
 	//ISingleImageProcessor* myProcessor = new CpuInvertFilter();
-	ISingleImageProcessor* myProcessor = new SingleCudaProcessor(deviceBlur1Launch);
+	//ISingleImageProcessor* myProcessor = new SingleCudaProcessor(deviceTileFlipLaunch);
+	ISingleImageProcessor* myProcessor = new SingleCudaTexProcessor(deviceTexInvertLaunch);
+
 
 	myProcessor->InitProcessing(videoFrame->width, videoFrame->height);
 	

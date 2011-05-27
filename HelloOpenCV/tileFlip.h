@@ -2,7 +2,7 @@
 
 #include "cudaCommon.h"
 
-void deviceBlur1Launch(
+void deviceTileFlipLaunch(
 	float *d_Image,
 	int width,
 	int height

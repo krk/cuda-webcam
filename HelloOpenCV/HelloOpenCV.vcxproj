@@ -89,7 +89,7 @@
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="blur1.h" />
+    <ClInclude Include="tileFlip.h" />
     <ClInclude Include="CpuInvertFilter.h" />
     <ClInclude Include="SingleCudaProcessor.h">
       <FileType>CppHeader</FileType>
@@ -104,7 +104,7 @@
     <CudaCompile Include="TextureHeader.cu">
       <FileType>CppHeader</FileType>
     </CudaCompile>
-    <CudaCompile Include="blur1.cu">
+    <CudaCompile Include="tileFlip.cu">
       <FileType>CppHeader</FileType>
     </CudaCompile>
     <CudaCompile Include="invert.cu">

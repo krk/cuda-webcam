@@ -5,6 +5,6 @@
 
 #include "cudaCommon.h"
 
-texture<float4, 2> tex;
+//texture<float4, 2, cudaReadModeElementType> tex;
 
 #endif

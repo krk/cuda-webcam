@@ -15,7 +15,7 @@
 // CUDA kernel launcherlar
 
 #include "invert.h"
-#include "blur1.h"
+#include "tileFlip.h"
 
 #include "texInvert.h"
 

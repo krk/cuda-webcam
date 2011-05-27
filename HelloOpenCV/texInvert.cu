@@ -1,6 +1,11 @@
+#ifndef TEX_INVERT_CU
+#define TEX_INVERT_CU
+
 #include "texInvert.h"
 
-#include "TextureHeader.cu"
+//#include "TextureHeader.cu"
+
+texture<float4, 2, cudaReadModeElementType> tex;
 
 #define BLOCK_SIZE (32)
 
@@ -13,14 +18,19 @@ void gpuTexInvert(
 	int height
 	)
 {
-	int i = blockIdx.x * BLOCK_SIZE + threadIdx.x;
-	int k = blockIdx.y * BLOCK_SIZE + threadIdx.y;
+	int row = blockIdx.y * BLOCK_SIZE + threadIdx.y;
+	int col = blockIdx.x * BLOCK_SIZE + threadIdx.x;
 
-	int cIdx = (i*width + k) * 3;
+	int cIdx = ( row * width + col ) * 3; // 3 ile çarpým RGB için, linearIndex.
 
-	float4 texVal = tex2D(tex, i, k);
 
-	*( image + cIdx ) = 1 - texVal.x;
+	float tu = (float)col / width;
+	float tv = (float)row / height;
+
+	//float4 texVal = tex2D( tex, k + .5f, i + .5f );
+	float4 texVal = tex2D( tex, tu, tv );
+
+	*( image + cIdx )     = 1 - texVal.x;
 	*( image + cIdx + 1 ) = 1 - texVal.y;
 	*( image + cIdx + 2 ) = 1 - texVal.z;
 }
@@ -33,7 +43,7 @@ void deviceTexInvertLaunch(
 {
 	 // launch kernel
 	dim3 dimBlock( BLOCK_SIZE, BLOCK_SIZE );
-    dim3 dimGrid( height / dimBlock.x, width / dimBlock.y );
+    dim3 dimGrid( width / dimBlock.x, height / dimBlock.y );
 
 #if ENABLE_TIMING_CODE
 
@@ -64,3 +74,6 @@ void deviceTexInvertLaunch(
     // Check for any CUDA errors
     checkCUDAError("kernel invocation");
 }
+
+
+#endif

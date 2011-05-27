@@ -33,13 +33,13 @@
     <ClInclude Include="CpuInvertFilter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="blur1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SingleCudaTexProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="texInvert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tileFlip.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -55,9 +55,6 @@
     <CudaCompile Include="invert.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
-    <CudaCompile Include="blur1.cu">
-      <Filter>Source Files</Filter>
-    </CudaCompile>
     <CudaCompile Include="TextureHeader.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
@@ -65,6 +62,9 @@
       <Filter>Source Files</Filter>
     </CudaCompile>
     <CudaCompile Include="texInvert.cu">
+      <Filter>Source Files</Filter>
+    </CudaCompile>
+    <CudaCompile Include="tileFlip.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
   </ItemGroup>
