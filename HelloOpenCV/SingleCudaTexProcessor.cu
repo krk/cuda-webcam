@@ -3,6 +3,7 @@
 
 #include "SingleCudaTexProcessor.h"
 
+const textureReference* constTexRefPtr = NULL;
 textureReference* texRefPtr = NULL;
 
 void SingleCudaTexProcessor::InitProcessing(int width, int height)
@@ -14,7 +15,10 @@ void SingleCudaTexProcessor::InitProcessing(int width, int height)
 	*/
 
 	// get texture reference.
-	cudaGetTextureReference(&texRefPtr, "tex");
+	cudaGetTextureReference(&constTexRefPtr, textureSymbolName);
+	checkCUDAError("get texture reference");
+	
+	texRefPtr = const_cast<textureReference*>( constTexRefPtr );
 
 	channelDesc = cudaCreateChannelDesc<float4>();
 	cudaMallocArray( &cu_array, &texRefPtr->channelDesc, width, height ); 

@@ -18,5 +18,6 @@
 #include "tileFlip.h"
 
 #include "texInvert.h"
+#include "texBoxBlur.h"
 
 void ProcessFrame(IplImage* videoFrame);

@@ -8,11 +8,12 @@ class SingleCudaTexProcessor : public SingleCudaProcessor
 private:
 	cudaArray* cu_array;
 	cudaChannelFormatDesc channelDesc;
+	const char* textureSymbolName;
 
 public:
 	
-	SingleCudaTexProcessor( void kernelLauncher(float*, int, int) )
-		: SingleCudaProcessor(kernelLauncher)
+	SingleCudaTexProcessor( void kernelLauncher(float*, int, int), const char* textureSymbolName )
+		: SingleCudaProcessor(kernelLauncher), textureSymbolName(textureSymbolName)
 	{
 	}
 

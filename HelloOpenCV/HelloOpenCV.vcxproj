@@ -89,12 +89,16 @@
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="texBoxBlur.h" />
     <ClInclude Include="tileFlip.h" />
     <ClInclude Include="CpuInvertFilter.h" />
     <ClInclude Include="SingleCudaProcessor.h">
       <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="texInvert.h" />
+    <CudaCompile Include="texBoxBlur.cu">
+      <FileType>CppHeader</FileType>
+    </CudaCompile>
     <CudaCompile Include="texInvert.cu">
       <FileType>CppHeader</FileType>
     </CudaCompile>

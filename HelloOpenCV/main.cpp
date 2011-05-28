@@ -37,10 +37,11 @@ int main( int argc, char** argv )
 	//ISingleImageProcessor* myProcessor = new SingleCudaProcessor(deviceInvertLaunch);
 	//ISingleImageProcessor* myProcessor = new CpuInvertFilter();
 	//ISingleImageProcessor* myProcessor = new SingleCudaProcessor(deviceTileFlipLaunch);
-	ISingleImageProcessor* myProcessor = new SingleCudaTexProcessor(deviceTexInvertLaunch);
+	//ISingleImageProcessor* myProcessor = new SingleCudaTexProcessor(deviceTexInvertLaunch, "tex");
+	ISingleImageProcessor* myProcessor = new SingleCudaTexProcessor(deviceTexBoxBlurLaunch, "texBlur1");
+	
 
-
-	myProcessor->InitProcessing(videoFrame->width, videoFrame->height);
+	myProcessor->InitProcessing(resizedImage->width, resizedImage->height);
 	
 	// q tuþuna basana kadar dön.
 	while( key != 'q' )
@@ -59,7 +60,7 @@ int main( int argc, char** argv )
 		// Negatif görüntüyü pencerede göster.
 		cvShowImage( "MainVideo", resizedImage );
 
-		key = cvWaitKey( 1 ); // 10ms tuþ için bekle.
+		key = cvWaitKey( 10 ); // 10ms tuþ için bekle.
 
 	}
 
