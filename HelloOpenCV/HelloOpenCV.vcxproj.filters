@@ -24,16 +24,7 @@
     <ClInclude Include="cudaCommon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SingleImageProcessor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SingleCudaProcessor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CpuInvertFilter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SingleCudaTexProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="texInvert.h">
@@ -46,6 +37,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="texAbsDiff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleCudaFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleCudaTexFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleImageFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleImageFilterChain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -61,12 +64,6 @@
     <CudaCompile Include="invert.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
-    <CudaCompile Include="TextureHeader.cu">
-      <Filter>Source Files</Filter>
-    </CudaCompile>
-    <CudaCompile Include="SingleCudaTexProcessor.cu">
-      <Filter>Source Files</Filter>
-    </CudaCompile>
     <CudaCompile Include="texInvert.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
@@ -77,6 +74,9 @@
       <Filter>Source Files</Filter>
     </CudaCompile>
     <CudaCompile Include="texAbsDiff.cu">
+      <Filter>Source Files</Filter>
+    </CudaCompile>
+    <CudaCompile Include="SingleCudaTexFilter.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
   </ItemGroup>

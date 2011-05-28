@@ -7,10 +7,12 @@
 
 #include "cudaCommon.h"
 
-#include "SingleCudaProcessor.h"
+#include "SingleImageFilterChain.h"
+
+#include "SingleCudaFilter.h"
 #include "CpuInvertFilter.h"
 
-#include "SingleCudaTexProcessor.h"
+#include "SingleCudaTexFilter.h"
 
 // CUDA kernel launcherlar
 
@@ -21,4 +23,4 @@
 #include "texBoxBlur.h"
 #include "texAbsDiff.h"
 
-void ProcessFrame(IplImage* videoFrame);
+void FilterFrame(IplImage* videoFrame);

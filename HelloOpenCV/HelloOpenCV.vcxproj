@@ -63,6 +63,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opencv_core220.lib;opencv_highgui220.lib;opencv_imgproc220.lib;cuda.lib;cudart.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <CudaCompile />
     <CudaCompile>
       <CodeGeneration>compute_20,sm_30</CodeGeneration>
     </CudaCompile>
@@ -85,31 +86,31 @@
       <AdditionalDependencies>opencv_core220.lib;opencv_highgui220.lib;opencv_imgproc220.lib;cudart.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CudaCompile>
-      <CodeGeneration>compute_20,sm_40</CodeGeneration>
+      <CodeGeneration>compute_21,sm_40</CodeGeneration>
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="SingleImageFilterChain.h" />
     <ClInclude Include="texAbsDiff.h" />
     <ClInclude Include="texBoxBlur.h" />
     <ClInclude Include="tileFlip.h" />
     <ClInclude Include="CpuInvertFilter.h" />
-    <ClInclude Include="SingleCudaProcessor.h">
+    <ClInclude Include="SingleCudaFilter.h">
       <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="texInvert.h" />
-    <CudaCompile Include="texAbsDiff.cu" />
+    <CudaCompile Include="texAbsDiff.cu">
+      <FileType>CppHeader</FileType>
+    </CudaCompile>
     <CudaCompile Include="texBoxBlur.cu">
       <FileType>CppHeader</FileType>
     </CudaCompile>
     <CudaCompile Include="texInvert.cu">
       <FileType>CppHeader</FileType>
     </CudaCompile>
-    <CudaCompile Include="SingleCudaTexProcessor.cu" />
-    <ClInclude Include="SingleCudaTexProcessor.h" />
-    <ClInclude Include="SingleImageProcessor.h" />
-    <CudaCompile Include="TextureHeader.cu">
-      <FileType>CppHeader</FileType>
-    </CudaCompile>
+    <CudaCompile Include="SingleCudaTexFilter.cu" />
+    <ClInclude Include="SingleCudaTexFilter.h" />
+    <ClInclude Include="SingleImageFilter.h" />
     <CudaCompile Include="tileFlip.cu">
       <FileType>CppHeader</FileType>
     </CudaCompile>

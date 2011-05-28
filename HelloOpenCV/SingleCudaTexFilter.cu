@@ -1,14 +1,10 @@
 #pragma once
 
+#include "SingleCudaTexFilter.h"
 
-#include "SingleCudaTexProcessor.h"
-
-const textureReference* constTexRefPtr = NULL;
-textureReference* texRefPtr = NULL;
-
-void SingleCudaTexProcessor::InitProcessing(int width, int height)
+void SingleCudaTexFilter::InitFilter(int width, int height)
 {
-	SingleCudaProcessor::InitProcessing(width, height);
+	SingleCudaFilter::InitFilter(width, height);
 
 	/*
 	allocate device texture memory
@@ -50,10 +46,10 @@ void SingleCudaTexProcessor::InitProcessing(int width, int height)
 
 
 
-	checkCUDAError("ProcessImage: Bind Texture");
+	checkCUDAError("FilterImage: Bind Texture");
 }
 
-void SingleCudaTexProcessor::ProcessImage(char* imageData)
+void SingleCudaTexFilter::FilterImage(char* imageData)
 {
 	int index;
 	// copy imageData to GPU.
@@ -69,7 +65,7 @@ void SingleCudaTexProcessor::ProcessImage(char* imageData)
 	
 	
 	cudaMemcpyToArray( cu_array, 0, 0, h_Image, sizeof(float4) * width * height, cudaMemcpyHostToDevice);
-	checkCUDAError("ProcessImage: memcpy");
+	checkCUDAError("FilterImage: memcpy");
 
 		// Bind the array to the texture
 	cudaBindTextureToArray( texRefPtr, cu_array, &texRefPtr->channelDesc );
@@ -81,7 +77,7 @@ void SingleCudaTexProcessor::ProcessImage(char* imageData)
 	
 	// copy results back to h_C.
 	cudaMemcpy( h_Image, d_Image, 3 * sizeof(float) * width * height, cudaMemcpyDeviceToHost);
-	checkCUDAError("ProcessImage: memcpy2");
+	checkCUDAError("FilterImage: memcpy2");
 
 	for(int i=0; i<3*width*height; i++)
 	{
@@ -90,9 +86,9 @@ void SingleCudaTexProcessor::ProcessImage(char* imageData)
 	}
 }
 
-void SingleCudaTexProcessor::ReleaseProcessing()
+void SingleCudaTexFilter::ReleaseFilter()
 {
-	SingleCudaProcessor::ReleaseProcessing();
+	SingleCudaFilter::ReleaseFilter();
 
 	cudaUnbindTexture( texRefPtr );
 	checkCUDAError("unbind tex");

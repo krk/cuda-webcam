@@ -10,6 +10,14 @@ texture<float4, 2, cudaReadModeElementType> texAbsDiff1;
 
 #define ENABLE_TIMING_CODE 1
 
+
+// abs
+inline __host__ __device__ float4 abs( float4 a )
+{	
+	return make_float4( fabsf( a.x ), fabsf( a.y ), fabsf( a.z ), fabsf( a.w ) );
+}
+
+
 __global__
 void gpuTexAbsDiff(
 	float* image,

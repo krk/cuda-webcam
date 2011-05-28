@@ -1,5 +1,7 @@
 #include "main.h" // tüm baþlýklarýmýzý ve tanýmlamalarýmýzý içeren baþlýk dosyasý.
 
+
+
 int main( int argc, char** argv )
 {
 	int key = -1;
@@ -34,15 +36,19 @@ int main( int argc, char** argv )
 	
 	IplImage* resizedImage = cvCreateImage(cvSize(640, 480), videoFrame->depth, videoFrame->nChannels);
 
-	//ISingleImageProcessor* myProcessor = new SingleCudaProcessor(deviceInvertLaunch);
-	//ISingleImageProcessor* myProcessor = new CpuInvertFilter();
-	//ISingleImageProcessor* myProcessor = new SingleCudaProcessor(deviceTileFlipLaunch);
-	//ISingleImageProcessor* myProcessor = new SingleCudaTexProcessor(deviceTexInvertLaunch, "tex");
-	//ISingleImageProcessor* myProcessor = new SingleCudaTexProcessor(deviceTexBoxBlurLaunch, "texBlur1");
-	ISingleImageProcessor* myProcessor = new SingleCudaTexProcessor(deviceTexAbsDiffLaunch, "texAbsDiff1");
+	//ISingleImageFilter* myFilter1 = new SingleCudaFilter(deviceInvertLaunch);
+	ISingleImageFilter* myFilter2 = new CpuInvertFilter();
+	//ISingleImageFilter* myFilter3 = new SingleCudaFilter(deviceTileFlipLaunch);
+	//ISingleImageFilter* myFilter4 = new SingleCudaTexFilter(deviceTexBoxBlurLaunch, "texBlur1");
+	ISingleImageFilter* myFilter5 = new SingleCudaTexFilter(deviceTexAbsDiffLaunch, "texAbsDiff1");
+	ISingleImageFilter* myFilter6 = new SingleCudaTexFilter(deviceTexInvertLaunch, "tex");
 	
+	SingleImageFilterChain* myFilter = new SingleImageFilterChain();
+	myFilter->AppendFilter( myFilter5 );
+	myFilter->AppendFilter( myFilter2 );
+	//myFilter->AppendFilter( myFilter6 );
 
-	myProcessor->InitProcessing(resizedImage->width, resizedImage->height);
+	myFilter->InitFilter(resizedImage->width, resizedImage->height);
 	
 	// q tuþuna basana kadar dön.
 	while( key != 'q' )
@@ -56,7 +62,7 @@ int main( int argc, char** argv )
 		if( !resizedImage )
 			break;
 
-		myProcessor->ProcessImage(resizedImage->imageData);
+		myFilter->FilterImage(resizedImage->imageData);
 
 		// Negatif görüntüyü pencerede göster.
 		cvShowImage( "MainVideo", resizedImage );
@@ -69,7 +75,7 @@ int main( int argc, char** argv )
 
 	cvReleaseCapture( &capture ); // Kameranýn tutacaðýný býrakýr.
 
-	myProcessor->ReleaseProcessing();
+	myFilter->ReleaseFilter();
 
 	cudaThreadExit();
 

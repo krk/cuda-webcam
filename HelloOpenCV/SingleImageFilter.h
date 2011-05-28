@@ -1,19 +1,19 @@
 #pragma once
 
-class ISingleImageProcessor
+class ISingleImageFilter
 {
 public:
 
 	// Ýmaj ile ilgili alloc ve benzeri iþlemleri yapar.
-	virtual void InitProcessing(int width, int height) = 0;
+	virtual void InitFilter(int width, int height) = 0;
 
 	// Ýmajý yerinde iþleyen fonksiyon (in-place).
-	virtual void ProcessImage(char* image) = 0;
+	virtual void FilterImage(char* image) = 0;
 
-	virtual void ReleaseProcessing() = 0;
+	virtual void ReleaseFilter() = 0;
 };
 
-class SingleImageProcessor : public ISingleImageProcessor
+class SingleImageFilter : public ISingleImageFilter
 {
 protected:
 	bool isInited;
@@ -23,26 +23,25 @@ protected:
 
 public:
 
-	virtual ~SingleImageProcessor()
+	virtual ~SingleImageFilter()
 	{
 	}
 
-	SingleImageProcessor(void)
+	SingleImageFilter(void)
 		: isInited(false), isReleased(false), height(0), width(0)
 	{
 		
 	}
 
-	virtual void InitProcessing(int width, int height)
+	virtual void InitFilter(int width, int height)
 	{
 		this->width = width;
 		this->height = height;
 		this->isInited = true;
 	}
 
-	virtual void ReleaseProcessing()
+	virtual void ReleaseFilter()
 	{
 		this->isReleased = true;
 	}
 };
-

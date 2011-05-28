@@ -8,7 +8,7 @@ texture<float4, 2, cudaReadModeElementType> texBlur1;
 #define BLOCK_SIZE_X (32)
 #define BLOCK_SIZE_Y (32)
 
-#define ENABLE_TIMING_CODE 0
+#define ENABLE_TIMING_CODE 1
 
 __global__
 void gpuTexBoxBlur(

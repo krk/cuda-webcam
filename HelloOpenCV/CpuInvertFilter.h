@@ -1,12 +1,12 @@
-#include "SingleImageProcessor.h"
+#include "SingleImageFilter.h"
 
 #pragma once
 
-class CpuInvertFilter : public SingleImageProcessor
+class CpuInvertFilter : public SingleImageFilter
 {
 public:
 
-	virtual void ProcessImage(char* imageData)
+	virtual void FilterImage(char* imageData)
 	{
 		// copy imageData to GPU.
 		for(int i=0; i<3*width*height; i++)

@@ -1,13 +1,13 @@
 #include "cudaCommon.h"
 
-#include "SingleImageProcessor.h"
+#include "SingleImageFilter.h"
 
 #pragma once
 
 inline
 unsigned char satchar(float val);
 
-class SingleCudaProcessor : public SingleImageProcessor
+class SingleCudaFilter : public SingleImageFilter
 {
 protected:
 	float* h_Image;
@@ -18,14 +18,14 @@ protected:
 
 public:
 
-	SingleCudaProcessor( void kernelLauncher(float*, int, int) )
+	explicit SingleCudaFilter( void kernelLauncher(float*, int, int) )
 		: kernelLauncher(kernelLauncher)
 	{
 	}
 
-	virtual void InitProcessing(int width, int height)
+	virtual void InitFilter(int width, int height)
 	{
-		SingleImageProcessor::InitProcessing(width, height);
+		SingleImageFilter::InitFilter(width, height);
 
 		/*
 		allocate device memory
@@ -43,7 +43,7 @@ public:
 		checkCUDAError("malloc host image");
 	}
 
-	virtual void ProcessImage(char* imageData)
+	virtual void FilterImage(char* imageData)
 	{
 		// copy imageData to GPU.
 		for(int i=0; i<3*width*height; i++)
@@ -56,13 +56,13 @@ public:
 		*/
 
 		cudaMemcpy( d_Image, h_Image, 3 * sizeof(float) * width * height, cudaMemcpyHostToDevice );
-		checkCUDAError("ProcessImage: memcpy");
+		checkCUDAError("FilterImage: memcpy");
 
 		kernelLauncher( d_Image, width, height );
 	
 		// copy results back to h_C.
 		cudaMemcpy( h_Image, d_Image, 3 * sizeof(float) * width * height, cudaMemcpyDeviceToHost);
-		checkCUDAError("ProcessImage: memcpy2");
+		checkCUDAError("FilterImage: memcpy2");
 
 		for(int i=0; i<3*width*height; i++)
 		{
@@ -70,9 +70,9 @@ public:
 		}
 	}
 
-	virtual void ReleaseProcessing()
+	virtual void ReleaseFilter()
 	{
-		SingleImageProcessor::ReleaseProcessing();
+		SingleImageFilter::ReleaseFilter();
 
 		cudaFree( d_Image );
 		checkCUDAError("free device image");
