@@ -41,12 +41,11 @@ int main( int argc, char** argv )
 	//ISingleImageFilter* myFilter3 = new SingleCudaFilter(deviceTileFlipLaunch);
 	//ISingleImageFilter* myFilter4 = new SingleCudaTexFilter(deviceTexBoxBlurLaunch, "texBlur1");
 	ISingleImageFilter* myFilter5 = new SingleCudaTexFilter(deviceTexAbsDiffLaunch, "texAbsDiff1");
-	ISingleImageFilter* myFilter6 = new SingleCudaTexFilter(deviceTexInvertLaunch, "tex");
+	//ISingleImageFilter* myFilter6 = new SingleCudaTexFilter(deviceTexInvertLaunch, "tex");
 	
 	SingleImageFilterChain* myFilter = new SingleImageFilterChain();
 	myFilter->AppendFilter( myFilter5 );
 	myFilter->AppendFilter( myFilter2 );
-	//myFilter->AppendFilter( myFilter6 );
 
 	myFilter->InitFilter(resizedImage->width, resizedImage->height);
 	
