@@ -89,6 +89,7 @@
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="texAbsDiff.h" />
     <ClInclude Include="texBoxBlur.h" />
     <ClInclude Include="tileFlip.h" />
     <ClInclude Include="CpuInvertFilter.h" />
@@ -96,6 +97,7 @@
       <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="texInvert.h" />
+    <CudaCompile Include="texAbsDiff.cu" />
     <CudaCompile Include="texBoxBlur.cu">
       <FileType>CppHeader</FileType>
     </CudaCompile>

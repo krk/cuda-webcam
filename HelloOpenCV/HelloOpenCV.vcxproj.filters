@@ -45,6 +45,9 @@
     <ClInclude Include="texBoxBlur.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="texAbsDiff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +74,9 @@
       <Filter>Source Files</Filter>
     </CudaCompile>
     <CudaCompile Include="texBoxBlur.cu">
+      <Filter>Source Files</Filter>
+    </CudaCompile>
+    <CudaCompile Include="texAbsDiff.cu">
       <Filter>Source Files</Filter>
     </CudaCompile>
   </ItemGroup>

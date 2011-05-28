@@ -63,3 +63,11 @@ inline __host__ __device__ void operator/=(float4 &a, float s)
     float inv = 1.0f / s;
     a *= inv;
 }
+
+
+// abs
+
+inline __host__ __device__ float4 abs( float4 a )
+{
+	return make_float4( abs( a.x ), abs( a.y ), abs( a.z ), abs( a.w ) );
+}

@@ -19,5 +19,6 @@
 
 #include "texInvert.h"
 #include "texBoxBlur.h"
+#include "texAbsDiff.h"
 
 void ProcessFrame(IplImage* videoFrame);

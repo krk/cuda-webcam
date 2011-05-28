@@ -38,7 +38,8 @@ int main( int argc, char** argv )
 	//ISingleImageProcessor* myProcessor = new CpuInvertFilter();
 	//ISingleImageProcessor* myProcessor = new SingleCudaProcessor(deviceTileFlipLaunch);
 	//ISingleImageProcessor* myProcessor = new SingleCudaTexProcessor(deviceTexInvertLaunch, "tex");
-	ISingleImageProcessor* myProcessor = new SingleCudaTexProcessor(deviceTexBoxBlurLaunch, "texBlur1");
+	//ISingleImageProcessor* myProcessor = new SingleCudaTexProcessor(deviceTexBoxBlurLaunch, "texBlur1");
+	ISingleImageProcessor* myProcessor = new SingleCudaTexProcessor(deviceTexAbsDiffLaunch, "texAbsDiff1");
 	
 
 	myProcessor->InitProcessing(resizedImage->width, resizedImage->height);
