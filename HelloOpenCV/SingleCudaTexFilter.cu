@@ -13,13 +13,16 @@ void SingleCudaTexFilter::InitFilter(int width, int height)
 	allocate device texture memory
 	*/
 
-	// get texture reference.
+	// cudaGetTextureReference, istediði gibi const texture referansý ile çaðrýlýr.
 	cudaGetTextureReference(&constTexRefPtr, textureSymbolName);
 	checkCUDAError("get texture reference");
 	
+	// const olan referans, const olmayan referansa dönüþtürülerek saklanýr.
 	texRefPtr = const_cast<textureReference*>( constTexRefPtr );
 
 	channelDesc = cudaCreateChannelDesc<float4>();
+
+	// const olmayan texture referansýnýn kullanýmý.
 	cudaMallocArray( &cu_array, &texRefPtr->channelDesc, width, height ); 
 	checkCUDAError("malloc device image");
  
@@ -66,7 +69,7 @@ void SingleCudaTexFilter::FilterImage(char* imageData)
 	}
 
 	
-	
+	// cu_array, texturea atanýr.
 	cudaMemcpyToArray( cu_array, 0, 0, h_Image, sizeof(float4) * width * height, cudaMemcpyHostToDevice);
 	checkCUDAError("FilterImage: memcpy");
 

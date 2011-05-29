@@ -42,7 +42,7 @@ int main( int argc, char** argv )
 	
 	IplImage* resizedImage = cvCreateImage(cvSize(640, 480), videoFrame->depth, videoFrame->nChannels);
 
-	ISingleImageFilter* myFilter0 = new IdentityFilter();
+	//ISingleImageFilter* myFilter0 = new IdentityFilter();
 	
 	//ISingleImageFilter* myFilter1 = new SingleCudaFilter(deviceInvertLaunch);
 	//ISingleImageFilter* myFilter1 = new CudaInvertFilter();
@@ -59,6 +59,8 @@ int main( int argc, char** argv )
 
 	//ISingleImageFilter* myFilter6 = new SingleCudaTexFilter(deviceTexInvertLaunch, "texInvert1");
 	//ISingleImageFilter* myFilter6 = new CudaTexInvertFilter();
+
+	//ISingleImageFilter* myFilter7 = new CudaSepiaFilter();
 
 	SingleImageFilterChain* myFilter = new SingleImageFilterChain();
 	myFilter->AppendFilter( myFilter5 );
@@ -92,6 +94,8 @@ int main( int argc, char** argv )
 	cvReleaseCapture( &capture ); // Kameranýn tutacaðýný býrakýr.
 
 	myFilter->ReleaseFilter();
+	
+	delete myFilter;
 
 	cudaThreadExit();
 

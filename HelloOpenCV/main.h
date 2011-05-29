@@ -24,8 +24,10 @@
 #include "SingleCudaTexFilter.h"
 
 #include "IdentityFilter.h"
-// CUDA kernel launcherlar
 
+#include "CudaSepiaFilter.h"
+
+// CUDA kernel launcherlar
 #include "invert.h"
 #include "tileFlip.h"
 

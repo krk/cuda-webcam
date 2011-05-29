@@ -80,25 +80,33 @@ public:
 	*/
 	virtual void FilterImage(char* imageData)
 	{
-		// copy imageData to GPU.
+		// imageData deðiþkenindeki görüntü verisi normalize edilerek h_Image deðiþkenine aktarýlýr.
 		for(int i=0; i<3*width*height; i++)
 		{
 			*(h_Image + i) = (unsigned char)*(imageData + i) / 255.0f; // normalize and copy image
 		}
 
 		/*
-		Copy image to device.
+			Görüntü GPU belleðine kopyalanýr.
 		*/
 
 		cudaMemcpy( d_Image, h_Image, 3 * sizeof(float) * width * height, cudaMemcpyHostToDevice );
 		checkCUDAError("FilterImage: memcpy");
 
+		/*
+			Constructorda verilen kernel çalýþtýrýlýr.
+		*/
 		kernelLauncher( d_Image, width, height );
 	
-		// copy results back to h_C.
+		/*
+			Sonuçlar CPU belleðine kopyalanýr.
+		*/
 		cudaMemcpy( h_Image, d_Image, 3 * sizeof(float) * width * height, cudaMemcpyDeviceToHost);
 		checkCUDAError("FilterImage: memcpy2");
 
+		/*
+			h_Image deðiþkenindeki normalize edilmiþ görüntü verisi [0, 255] aralýðýna çekilir.
+		*/
 		for(int i=0; i<3*width*height; i++)
 		{
 			*(imageData + i) = satchar(*(h_Image + i) * 255);

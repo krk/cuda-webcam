@@ -29,14 +29,15 @@ void gpuInvert(
 	int height
 	)
 {
-	int i = blockIdx.x * BLOCK_SIZE + threadIdx.x;
-	int k = blockIdx.y * BLOCK_SIZE + threadIdx.y;
+	int row = blockIdx.y * BLOCK_SIZE + threadIdx.y;
+	int col = blockIdx.x * BLOCK_SIZE + threadIdx.x;
 
-	int cIdx = (i*width + k) * 3;
+	int cIdx = ( row * width + col ) * 3; // 3 ile çarpým RGB için, linearIndex.
 
-	*( image + cIdx ) = 1 - *( image + cIdx );
-	*( image + cIdx + 1 ) = 1 - *( image + cIdx + 1 );
-	*( image + cIdx + 2 ) = 1 - *( image + cIdx + 2 );
+	// normalize edilmiþ pikselleri 1'den çýkarttýðýmýzda görüntünün negatifini almýþ oluruz.
+	*( image + cIdx     ) = 1 - *( image + cIdx     ); // Blue kanalý
+	*( image + cIdx + 1 ) = 1 - *( image + cIdx + 1 ); // Green kanalý
+	*( image + cIdx + 2 ) = 1 - *( image + cIdx + 2 ); // Red kanalý
 }
 
 /**
@@ -56,7 +57,7 @@ void deviceInvertLaunch(
 {
 	 // launch kernel
 	dim3 dimBlock( BLOCK_SIZE, BLOCK_SIZE );
-    dim3 dimGrid( height / dimBlock.x, width / dimBlock.y );
+    dim3 dimGrid( width / dimBlock.x, height / dimBlock.y );
 
 #if ENABLE_TIMING_CODE
 
