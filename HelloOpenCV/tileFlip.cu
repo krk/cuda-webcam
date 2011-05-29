@@ -1,10 +1,27 @@
-#include "invert.h"
+#include "tileFlip.h"
 
+/**
+	\file tileFlip.cu
+	CUDA tile flip kernelinin launcher metodunu ve kernelini tanýmlar.
+*/
+
+/** Kernel 1 griddeki blok boyutu ( BLOCK_SIZE x BLOCK_SIZE kare bloklar ). */
 #define BLOCK_SIZE (32)
 
+/** GPU zamanýný ölçmek için 1 yapýnýz. */
 #define ENABLE_TIMING_CODE 1
 
-__global__
+/**	
+	Görüntüyü blok blok çeviren kernel.
+
+	\param image [0, 1] aralýðýna normalize edilmiþ, BGR kanal sýralý görüntünün GPU belleðindeki adresi.
+	\param width Görüntünün piksel olarak geniþliði
+	\param height Görüntünün piksel olarak yüksekliði
+
+	
+	Metod GPU üzerinde çalýþýr, çýktýsýný image parametresinin üzerine yazar.
+
+	*/__global__
 void gpuTileFlip(
 	float* image,
 	int width,
@@ -45,6 +62,15 @@ void gpuTileFlip(
 	*( image + cIdx + 2 ) = abs((*( image + cIdx + 2 ) - *( image + cIdxRight + 2 )));*/
 }
 
+/**
+	\ref ptKernelLauncher tipinde metod.
+
+	\param d_Image [0, 1] aralýðýna normalize edilmiþ, BGR kanal sýralý görüntünün GPU belleðindeki adresi.
+	\param width Görüntünün piksel olarak geniþliði
+	\param height Görüntünün piksel olarak yüksekliði
+
+	\ref gpuTileFlip kernelini Grid ve Block boyutlarýný ayarlayarak çaðýran metod.
+*/
 void deviceTileFlipLaunch(
 	float *d_Image,
 	int width,

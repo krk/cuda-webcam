@@ -90,6 +90,13 @@
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="common.h" />
+    <ClInclude Include="CudaInvertFilter.h" />
+    <ClInclude Include="CudaTexBoxBlurFilter.h" />
+    <ClInclude Include="CudaTexInvertFilter.h" />
+    <ClInclude Include="CudaTileFlipFilter.h" />
+    <ClInclude Include="IdentityFilter.h" />
+    <ClInclude Include="ISingleImageFilter.h" />
     <ClInclude Include="SingleImageFilterChain.h" />
     <ClInclude Include="texAbsDiff.h" />
     <ClInclude Include="texBoxBlur.h" />

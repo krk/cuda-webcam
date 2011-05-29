@@ -5,7 +5,11 @@ HelloOpenCV.opensdf
 Release
 *.cd
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 doxygen
 HelloOpenCV.sdf
 >>>>>>> ef041e7... sdf dosyasi silindi.
+=======
+doxygen
+>>>>>>> 59dc3e9... Doxygen commentleri eklendi.

@@ -1,6 +1,9 @@
-#pragma once
-
 #include "SingleCudaTexFilter.h"
+
+/** 
+	\file SingleCudaTexFilter.cu
+	SingleCudaTexFilter sýnýfýnýn tanýmýný içeren dosya.
+*/
 
 void SingleCudaTexFilter::InitFilter(int width, int height)
 {
@@ -67,14 +70,14 @@ void SingleCudaTexFilter::FilterImage(char* imageData)
 	cudaMemcpyToArray( cu_array, 0, 0, h_Image, sizeof(float4) * width * height, cudaMemcpyHostToDevice);
 	checkCUDAError("FilterImage: memcpy");
 
-		// Bind the array to the texture
+	// Bind the array to the texture
 	cudaBindTextureToArray( texRefPtr, cu_array, &texRefPtr->channelDesc );
-
 
 
 	// Execute kernel.
 	kernelLauncher( d_Image, width, height );
-	
+
+
 	// copy results back to h_C.
 	cudaMemcpy( h_Image, d_Image, 3 * sizeof(float) * width * height, cudaMemcpyDeviceToHost);
 	checkCUDAError("FilterImage: memcpy2");

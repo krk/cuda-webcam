@@ -1,23 +1,45 @@
 #ifndef TEX_INVERT_CU
 #define TEX_INVERT_CU
 
+/**
+	\file texAbsDiff.cu
+	CUDA texture absolute difference kernelinin launcher metodunu ve kernelini tanýmlar.
+*/
+
 #include "texAbsDiff.h"
 
-texture<float4, 2, cudaReadModeElementType> texAbsDiff1;
+texture<float4, 2, cudaReadModeElementType> texAbsDiff1; /**< Kernelde kullanýlan texture sembolü. */
 
-#define BLOCK_SIZE_X (32)
-#define BLOCK_SIZE_Y (32)
+#define BLOCK_SIZE_X (32) /**< Yatay blok boyutu */
+#define BLOCK_SIZE_Y (32) /**< Düþey blok boyutu */
 
+/** GPU zamanýný ölçmek için 1 yapýnýz. */
 #define ENABLE_TIMING_CODE 1
 
 
-// abs
+/**
+	Mutlak deðer metodu.
+
+	\param a Mutlak deðeri alýnacak float4 deðeri.
+
+	a parametresinin her bir elemanýnýn mutlak deðerini alarak yeni bir float4 döndürür.
+*/
 inline __host__ __device__ float4 abs( float4 a )
 {	
 	return make_float4( fabsf( a.x ), fabsf( a.y ), fabsf( a.z ), fabsf( a.w ) );
 }
 
+/**	
+	Texture kullanarak görüntünün komþu pikseller ile mutlak farkýný alan kernel.
 
+	\param image [0, 1] aralýðýna normalize edilmiþ, BGR kanal sýralý görüntünün GPU belleðindeki adresi.
+	\param width Görüntünün piksel olarak geniþliði
+	\param height Görüntünün piksel olarak yüksekliði
+
+	
+	Metod GPU üzerinde çalýþýr, çýktýsýný image parametresinin üzerine yazar.
+
+	*/
 __global__
 void gpuTexAbsDiff(
 	float* image,
@@ -57,6 +79,15 @@ void gpuTexAbsDiff(
 	*( image + cIdx + 2 ) = texVal.z;
 }
 
+/**
+	\ref ptKernelLauncher tipinde metod.
+
+	\param d_Image [0, 1] aralýðýna normalize edilmiþ, BGR kanal sýralý görüntünün GPU belleðindeki adresi.
+	\param width Görüntünün piksel olarak geniþliði
+	\param height Görüntünün piksel olarak yüksekliði
+
+	\ref gpuTexAbsDiff kernelini Grid ve Block boyutlarýný ayarlayarak çaðýran metod.
+*/
 void deviceTexAbsDiffLaunch(
 	float *d_Image,
 	int width,

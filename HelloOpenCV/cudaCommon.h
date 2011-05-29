@@ -1,4 +1,12 @@
-#pragma once
+#ifndef CUDACOMMON_H_
+#define CUDACOMMON_H_
+
+/**
+	\file cudaCommon.h
+	CUDA kullanan tüm sýnýflarda içerilen baþlýk dosyasý.
+
+	nVidia CUDA baþlýk dosyalarýný ve yardýmcý CUDA metodlarýný içerir.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,6 +16,8 @@
 
 void checkCUDAError(const char *msg);
 
+
+// float4 tipi için aritmetik operatörler.
 
 // addition
 inline __host__ __device__ float4 operator+(float4 a, float4 b)
@@ -64,4 +74,4 @@ inline __host__ __device__ void operator/=(float4 &a, float s)
     a *= inv;
 }
 
-
+#endif // CUDACOMMON_H_

@@ -1,7 +1,13 @@
 #include "main.h" // tüm başlıklarımızı ve tanımlamalarımızı içeren başlık dosyası.
 
+/**
+	\file main.cpp
+	Programın başlangıç metodunu içeren dosya.
+*/
 
-
+/**
+	Main metod.
+*/
 int main( int argc, char** argv )
 {
 	int key = -1;
@@ -36,13 +42,24 @@ int main( int argc, char** argv )
 	
 	IplImage* resizedImage = cvCreateImage(cvSize(640, 480), videoFrame->depth, videoFrame->nChannels);
 
-	//ISingleImageFilter* myFilter1 = new SingleCudaFilter(deviceInvertLaunch);
-	ISingleImageFilter* myFilter2 = new CpuInvertFilter();
-	//ISingleImageFilter* myFilter3 = new SingleCudaFilter(deviceTileFlipLaunch);
-	//ISingleImageFilter* myFilter4 = new SingleCudaTexFilter(deviceTexBoxBlurLaunch, "texBlur1");
-	ISingleImageFilter* myFilter5 = new SingleCudaTexFilter(deviceTexAbsDiffLaunch, "texAbsDiff1");
-	//ISingleImageFilter* myFilter6 = new SingleCudaTexFilter(deviceTexInvertLaunch, "tex");
+	ISingleImageFilter* myFilter0 = new IdentityFilter();
 	
+	//ISingleImageFilter* myFilter1 = new SingleCudaFilter(deviceInvertLaunch);
+	//ISingleImageFilter* myFilter1 = new CudaInvertFilter();
+
+	ISingleImageFilter* myFilter2 = new CpuInvertFilter();
+	
+	//ISingleImageFilter* myFilter3 = new SingleCudaFilter(deviceTileFlipLaunch);
+	//ISingleImageFilter* myFilter3 = new CudaTileFlipFilter();
+
+	//ISingleImageFilter* myFilter4 = new SingleCudaTexFilter(deviceTexBoxBlurLaunch, "texBlur1");
+	//ISingleImageFilter* myFilter4 = new CudaTexBoxBlurFilter();
+
+	ISingleImageFilter* myFilter5 = new SingleCudaTexFilter(deviceTexAbsDiffLaunch, "texAbsDiff1");
+
+	//ISingleImageFilter* myFilter6 = new SingleCudaTexFilter(deviceTexInvertLaunch, "texInvert1");
+	//ISingleImageFilter* myFilter6 = new CudaTexInvertFilter();
+
 	SingleImageFilterChain* myFilter = new SingleImageFilterChain();
 	myFilter->AppendFilter( myFilter5 );
 	myFilter->AppendFilter( myFilter2 );

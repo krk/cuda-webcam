@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloOpenCV", "HelloOpenCV\HelloOpenCV.vcxproj", "{89709FF6-155A-44A7-B666-465963530094}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8C6076C5-B47E-4EFF-822B-B4B6C23E1BFB}"
+	ProjectSection(SolutionItems) = preProject
+		HelloOpenCV.vsd = HelloOpenCV.vsd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32

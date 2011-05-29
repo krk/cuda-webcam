@@ -1,20 +1,23 @@
-#pragma once
+#ifndef SINGLEIMAGEFILTER_H_
+#define SINGLEIMAGEFILTER_H_
 
-class ISingleImageFilter
-{
-public:
+/** 
+	\file SingleImageFilter.h
+	SingleImageFilter sýnýfýnýn tanýmýný içeren baþlýk dosyasý.
+*/
 
-	// Ýmaj ile ilgili alloc ve benzeri iþlemleri yapar.
-	virtual void InitFilter(int width, int height) = 0;
+#include "common.h"
 
-	// Ýmajý yerinde iþleyen fonksiyon (in-place).
-	virtual void FilterImage(char* image) = 0;
+#include "ISingleImageFilter.h"
 
-	virtual void ReleaseFilter() = 0;
-};
-
+/**
+	ISingleImageFilter arayüzünü FilterImage metodu hariç gerçekleyen abstract sýnýf.
+*/
 class SingleImageFilter : public ISingleImageFilter
 {
+private:
+	DISALLOW_COPY_AND_ASSIGN(SingleImageFilter);
+	
 protected:
 	bool isInited;
 	bool isReleased;
@@ -28,7 +31,10 @@ public:
 	}
 
 	SingleImageFilter(void)
-		: isInited(false), isReleased(false), height(0), width(0)
+		: isInited(false), 
+		isReleased(false), 
+		height(0), 
+		width(0)
 	{
 		
 	}
@@ -45,3 +51,5 @@ public:
 		this->isReleased = true;
 	}
 };
+
+#endif SINGLEIMAGEFILTER_H_

@@ -1,15 +1,32 @@
 #ifndef TEX_INVERT_CU
 #define TEX_INVERT_CU
 
+/**
+	\file texBoxBlur.cu
+	CUDA texture box blur kernelinin launcher metodunu ve kernelini tanýmlar.
+*/
+
 #include "texBoxBlur.h"
 
-texture<float4, 2, cudaReadModeElementType> texBlur1;
+texture<float4, 2, cudaReadModeElementType> texBlur1; /**< Kernelde kullanýlan texture sembolü. */
 
-#define BLOCK_SIZE_X (32)
-#define BLOCK_SIZE_Y (32)
+#define BLOCK_SIZE_X (32) /**< Yatay blok boyutu */
+#define BLOCK_SIZE_Y (32) /**< Düþey blok boyutu */
 
+/** GPU zamanýný ölçmek için 1 yapýnýz. */
 #define ENABLE_TIMING_CODE 1
 
+/**	
+	Texture kullanarak görüntünün 5x5 box blurunu alan kernel.
+
+	\param image [0, 1] aralýðýna normalize edilmiþ, BGR kanal sýralý görüntünün GPU belleðindeki adresi.
+	\param width Görüntünün piksel olarak geniþliði
+	\param height Görüntünün piksel olarak yüksekliði
+
+	
+	Metod GPU üzerinde çalýþýr, çýktýsýný image parametresinin üzerine yazar.
+
+	*/
 __global__
 void gpuTexBoxBlur(
 	float* image,
@@ -52,6 +69,15 @@ void gpuTexBoxBlur(
 	*( image + cIdx + 2 ) = texVal.z;
 }
 
+/**
+	\ref ptKernelLauncher tipinde metod.
+
+	\param d_Image [0, 1] aralýðýna normalize edilmiþ, BGR kanal sýralý görüntünün GPU belleðindeki adresi.
+	\param width Görüntünün piksel olarak geniþliði
+	\param height Görüntünün piksel olarak yüksekliði
+
+	\ref gpuTexBoxBlur kernelini Grid ve Block boyutlarýný ayarlayarak çaðýran metod.
+*/
 void deviceTexBoxBlurLaunch(
 	float *d_Image,
 	int width,
