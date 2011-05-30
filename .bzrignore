@@ -9,7 +9,11 @@ Release
 =======
 doxygen
 HelloOpenCV.sdf
+<<<<<<< HEAD
 >>>>>>> ef041e7... sdf dosyasi silindi.
 =======
 doxygen
 >>>>>>> 59dc3e9... Doxygen commentleri eklendi.
+=======
+ImageFilterLib - HelloOpenCV.7z
+>>>>>>> 4cc5618... Lisans bilgileri tum dosyalara eklendi.
