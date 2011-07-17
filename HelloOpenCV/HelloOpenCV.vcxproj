@@ -73,10 +73,12 @@
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -84,6 +86,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opencv_core220.lib;opencv_highgui220.lib;opencv_imgproc220.lib;cuda.lib;cudart.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TurnOffAssemblyGeneration>false</TurnOffAssemblyGeneration>
     </Link>
     <CudaCompile>
       <CodeGeneration>compute_20,sm_30</CodeGeneration>
@@ -92,6 +95,7 @@
   <ItemGroup>
     <ClInclude Include="common.h" />
     <ClInclude Include="CpuCCLFilter.h" />
+    <ClInclude Include="CpuMovingAverageFilter.h" />
     <ClInclude Include="CudaInvertFilter.h" />
     <ClInclude Include="CudaSepiaFilter.h" />
     <ClInclude Include="CudaTexBoxBlurFilter.h" />

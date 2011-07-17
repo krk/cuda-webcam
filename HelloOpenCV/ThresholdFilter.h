@@ -27,50 +27,60 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
-#ifndef MAIN_H_
-#define MAIN_H_
-
-/**
-	\file main.h
-	Main.cpp dosyasýndan içerilen baþlýk dosyasý.
-*/
-
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "opencv2\opencv.hpp"
+#ifndef THRESHOLDFILTER_H_
+#define THRESHOLDFILTER_H_
 
 #include "common.h"
 
-#include "cudaCommon.h"
+#include "SingleImageFilter.h"
 
+/**
+	\file ThresholdFilter.h
+	ThresholdFilter sýnýfýnýn tanýmýný içerir.
+*/
 
-#include "SingleImageFilterChain.h"
+/**
+	Eþik filtre sýnýfý.
 
-#include "SingleCudaFilter.h"
+	Bu sýnýf SingleImageFilter sýnýfýný gerçekleyerek CPU üzerinde resmin eþik deðerine göre siyah-beyaz görüntüsünü alýr.
+*/
 
-#include "CpuInvertFilter.h"
-#include "CpuCCLFilter.h"
-#include "CpuMovingAverageFilter.h"
-#include "ThresholdFilter.h"
+class ThresholdFilter : public SingleImageFilter
+{
 
-#include "SingleCudaTexFilter.h"
+private:
 
-#include "IdentityFilter.h"
+	DISALLOW_COPY_AND_ASSIGN(ThresholdFilter);
 
-#include "CudaSepiaFilter.h"
+	unsigned char threshold;
+	
+public:
 
-// CUDA kernel launcherlar
-#include "invert.h"
-#include "tileFlip.h"
+	ThresholdFilter(unsigned char threshold)
+	{
+		this->threshold = threshold;
+	}
+	
+	/** Görüntünün eþik deðerine göre siyah-beyazýný alýr. */
+	virtual void FilterImage(char* imageData)
+	{
+		for(int i=0; i<width*height; i++)
+		{
+			// Y=0.3RED+0.59GREEN+0.11Blue
 
-#include "texInvert.h"
-#include "texBoxBlur.h"
-#include "texAbsDiff.h"
+			unsigned char b = *( imageData + i * 3 + 0 );
+			unsigned char g = *( imageData + i * 3 + 1 );
+			unsigned char r = *( imageData + i * 3 + 2 );
 
-#include "CudaTileFlipFilter.h"
-#include "CudaInvertFilter.h"
-#include "CudaTexBoxBlurFilter.h"
-#include "CudaTexInvertFilter.h"
+			unsigned char grayscale = ( unsigned char ) ( 0.3f * r + 0.59f * g + 0.11f * b );
 
-#endif // MAIN_H_
+			unsigned char result = grayscale > threshold ? 255 : 0;
+
+			*( imageData + i * 3 + 0 ) = result;
+			*( imageData + i * 3 + 1 ) = result;
+			*( imageData + i * 3 + 2 ) = result;
+		}
+	}
+};
+
+#endif // THRESHOLDFILTER_H_

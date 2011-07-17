@@ -94,11 +94,14 @@ int main( int argc, char** argv )
 	//ISingleImageFilter* myFilter7 = new CudaSepiaFilter();
 	ISingleImageFilter* myFilter8 = new CpuCCLFilter();
 
-	ISingleImageFilter* myFilter9 = new ThresholdFilter(90);
+	ISingleImageFilter* myFilter9 = new ThresholdFilter(190);
+
+	ISingleImageFilter* myFilter10 = new CpuMovingAverageFilter(10);	
 
 	SingleImageFilterChain* myFilter = new SingleImageFilterChain();
-	myFilter->AppendFilter( myFilter9 );
+	myFilter->AppendFilter( myFilter10 );
 	myFilter->AppendFilter( myFilter2 );
+	myFilter->AppendFilter( myFilter9 );
 	myFilter->AppendFilter( myFilter8 );
 
 	myFilter->InitFilter(resizedImage->width, resizedImage->height, resizedImage->widthStep);
