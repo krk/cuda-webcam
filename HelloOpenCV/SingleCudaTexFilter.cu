@@ -34,9 +34,9 @@
 	SingleCudaTexFilter sýnýfýnýn tanýmýný içeren dosya.
 */
 
-void SingleCudaTexFilter::InitFilter(int width, int height)
+void SingleCudaTexFilter::InitFilter(int width, int height, int rowStride)
 {
-	SingleCudaFilter::InitFilter(width, height);
+	SingleCudaFilter::InitFilter(width, height, rowStride);
 
 	/*
 	allocate device texture memory
@@ -123,6 +123,9 @@ void SingleCudaTexFilter::FilterImage(char* imageData)
 
 void SingleCudaTexFilter::ReleaseFilter()
 {
+	if( this->isReleased )
+		return;
+
 	SingleCudaFilter::ReleaseFilter();
 
 	cudaUnbindTexture( texRefPtr );

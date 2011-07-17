@@ -54,7 +54,7 @@ public:
 		\param width Görüntünün piksel geniþliði.
 		\param height Görüntünün piksel yüksekliði.
 	*/
-	virtual void InitFilter(int width, int height) = 0;
+	virtual void InitFilter(int width, int height, int rowStride) = 0;
 
 	/** 
 		Görüntünün yerinde(in-place) iþlenmesi için çaðrýlan metod. 

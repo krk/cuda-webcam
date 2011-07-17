@@ -48,7 +48,10 @@
 #include "SingleImageFilterChain.h"
 
 #include "SingleCudaFilter.h"
+
 #include "CpuInvertFilter.h"
+#include "CpuCCLFilter.h"
+#include "ThresholdFilter.h"
 
 #include "SingleCudaTexFilter.h"
 

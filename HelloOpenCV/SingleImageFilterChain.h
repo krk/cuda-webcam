@@ -78,7 +78,7 @@ public:
 
 		if ( isInited )
 		{
-			filter->InitFilter( width, height );
+			filter->InitFilter( width, height, rowStride );
 		}
 	}
 
@@ -115,16 +115,16 @@ public:
 		vecFilters.clear();
 	}
 	
-	virtual void InitFilter(int width, int height)
+	virtual void InitFilter(int width, int height, int rowStride)
 	{
-		SingleImageFilter::InitFilter(width, height);	
+		SingleImageFilter::InitFilter(width, height, rowStride);	
 
 		vector<ISingleImageFilter*>::const_iterator fi;
 		vector<ISingleImageFilter*>::const_iterator fEnd;
 
 		for (fi = vecFilters.begin(), fEnd = vecFilters.end(); fi != fEnd; fi++)
 		{			
-			(*fi)->InitFilter( width, height );
+			(*fi)->InitFilter( width, height, rowStride );
 		}
 	}
 
@@ -141,6 +141,9 @@ public:
 
 	virtual void ReleaseFilter()
 	{
+		if( this->isReleased )
+			return;
+
 		SingleImageFilter::ReleaseFilter();
 
 		vector<ISingleImageFilter*>::const_iterator fi;

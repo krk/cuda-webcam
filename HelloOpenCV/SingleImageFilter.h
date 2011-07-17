@@ -52,6 +52,7 @@ protected:
 	bool isReleased;
 	int height;
 	int width;
+	int rowStride; // byte width of a single row.
 
 public:
 
@@ -68,10 +69,11 @@ public:
 		
 	}
 
-	virtual void InitFilter(int width, int height)
+	virtual void InitFilter(int width, int height, int rowStride)
 	{
 		this->width = width;
 		this->height = height;
+		this->rowStride = rowStride;
 		this->isInited = true;
 	}
 

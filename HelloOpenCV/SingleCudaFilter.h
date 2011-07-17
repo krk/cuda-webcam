@@ -78,9 +78,9 @@ public:
 	/**
 		CPU ve GPU üzerinde normalize edilmiþ görüntüler için bellek ayýrýr.
 	*/
-	virtual void InitFilter(int width, int height)
+	virtual void InitFilter(int width, int height, int rowStride)
 	{
-		SingleImageFilter::InitFilter(width, height);
+		SingleImageFilter::InitFilter(width, height, rowStride);
 
 		/*
 		allocate device memory
@@ -147,6 +147,9 @@ public:
 	*/
 	virtual void ReleaseFilter()
 	{
+		if( this->isReleased )
+			return;
+
 		SingleImageFilter::ReleaseFilter();
 
 		cudaFree( d_Image );

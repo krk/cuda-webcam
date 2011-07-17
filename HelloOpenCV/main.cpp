@@ -84,7 +84,7 @@ int main( int argc, char** argv )
 	//ISingleImageFilter* myFilter3 = new CudaTileFlipFilter();
 
 	//ISingleImageFilter* myFilter4 = new SingleCudaTexFilter(deviceTexBoxBlurLaunch, "texBlur1");
-	//ISingleImageFilter* myFilter4 = new CudaTexBoxBlurFilter();
+	ISingleImageFilter* myFilter4 = new CudaTexBoxBlurFilter();
 
 	ISingleImageFilter* myFilter5 = new SingleCudaTexFilter(deviceTexAbsDiffLaunch, "texAbsDiff1");
 
@@ -92,12 +92,16 @@ int main( int argc, char** argv )
 	//ISingleImageFilter* myFilter6 = new CudaTexInvertFilter();
 
 	//ISingleImageFilter* myFilter7 = new CudaSepiaFilter();
+	ISingleImageFilter* myFilter8 = new CpuCCLFilter();
+
+	ISingleImageFilter* myFilter9 = new ThresholdFilter(90);
 
 	SingleImageFilterChain* myFilter = new SingleImageFilterChain();
-	myFilter->AppendFilter( myFilter5 );
+	myFilter->AppendFilter( myFilter9 );
 	myFilter->AppendFilter( myFilter2 );
+	myFilter->AppendFilter( myFilter8 );
 
-	myFilter->InitFilter(resizedImage->width, resizedImage->height);
+	myFilter->InitFilter(resizedImage->width, resizedImage->height, resizedImage->widthStep);
 	
 	// q tuþuna basana kadar dön.
 	while( key != 'q' )
@@ -115,6 +119,7 @@ int main( int argc, char** argv )
 
 		// Negatif görüntüyü pencerede göster.
 		cvShowImage( "MainVideo", resizedImage );
+		cvShowImage( "Unmodified", videoFrame );
 
 		key = cvWaitKey( 10 ); // 10ms tuþ için bekle.
 

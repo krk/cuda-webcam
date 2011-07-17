@@ -78,7 +78,7 @@ public:
 	{
 	}
 
-	virtual void InitFilter(int width, int height);
+	virtual void InitFilter(int width, int height, int rowStride);
 	virtual void FilterImage(char* imageData);
 	virtual void ReleaseFilter();
 };

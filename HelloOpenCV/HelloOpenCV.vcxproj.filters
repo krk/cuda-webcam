@@ -78,6 +78,12 @@
     <ClInclude Include="sepia.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CpuCCLFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThresholdFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
