@@ -224,6 +224,8 @@ void CpuCCLFilter::findConnectedComponents(int width, int height, int rowStride,
 		}
 	}
 
+
+	// tüm pikseller gezilir
 	for(int i = 0; i < height; i++)
 	{
 		for(int j = 0; j < width; j++)
@@ -308,9 +310,10 @@ void CpuCCLFilter::findConnectedComponents(int width, int height, int rowStride,
 	{
 		for(int j = 0; j < width; j++)
 		{
-			int labelNo = ds.find_set( outLabelBitmap[i*rowStride + j] );
+			int labelNo = ds.find_set( outLabelBitmap[i*rowStride + j] ); // pikselin etiketi bulunur.
 			int R =0, G=0, B=0;
 			
+			// etiketler renklendirilir.
 			hsl_to_rgb( 1.0f * labelNo / labelNumber, .8f + .2f * labelNo / labelNumber, .75f, &R, &G, &B );
 					
 			int idx = i * rowStride + j;
