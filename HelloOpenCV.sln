@@ -5,8 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloOpenCV", "HelloOpenCV\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8C6076C5-B47E-4EFF-822B-B4B6C23E1BFB}"
 	ProjectSection(SolutionItems) = preProject
-		HelloOpenCV-2.vsd = HelloOpenCV-2.vsd
-		HelloOpenCV.vsd = HelloOpenCV.vsd
+		doc\HelloOpenCV-2.vsd = doc\HelloOpenCV-2.vsd
+		doc\HelloOpenCV.vsd = doc\HelloOpenCV.vsd
 	EndProjectSection
 EndProject
 Global

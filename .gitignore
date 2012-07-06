@@ -4,21 +4,9 @@ ipch
 HelloOpenCV.opensdf
 Release
 *.cd
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 doxygen
 HelloOpenCV.sdf
-<<<<<<< HEAD
->>>>>>> ef041e7... sdf dosyasi silindi.
-=======
-doxygen
->>>>>>> 59dc3e9... Doxygen commentleri eklendi.
-=======
-ImageFilterLib - HelloOpenCV.7z
-<<<<<<< HEAD
->>>>>>> 4cc5618... Lisans bilgileri tum dosyalara eklendi.
-=======
 *.7z
 *.pdf
->>>>>>> eb3ef05... visio cizimleri olusturulan doc klasorune tasindi.
+
+*.suo
