@@ -4,9 +4,9 @@
 using namespace concurrency;
 
 /**
-	Cpu image invert filtre sýnýfý.
+	C++ AMP image invert filtre sýnýfý.
 
-	Bu sýnýf SingleImageFilter sýnýfýný gerçekleyerek CPU üzerinde resmin negatifini almaya yarar.
+	Bu sýnýf SingleImageFilter sýnýfýný gerçekleyerek C++ AMP kullanýr. Resmin negatifini almaya yarar.
 */
 
 /** Görüntünün RGB kanallarýnýn tersini alýr. */
@@ -24,12 +24,6 @@ void AmpInvertFilter::FilterImage(char* imageData)
 	
 	// Veri üzerinde doðrudan çalýþabiliriz. (in-place).
 	array_view<unsigned int, 1> img(size, iImageData);	
-		
-	/*
-	for(int i=0; i<3*width*height; i++)
-	{
-		*( imageData + i ) = ( unsigned char ) ( 255 - *( imageData + i ) ); // her pikselin her kanalýnýn negatifini al.
-	}*/
 
 	parallel_for_each(         
         img.extent,         
