@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="invert.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -63,9 +60,6 @@
     <ClInclude Include="CudaInvertFilter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CudaTexBoxBlurFilter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CudaTexInvertFilter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,12 +81,21 @@
     <ClInclude Include="CpuMovingAverageFilter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CudaTexBoxBlurFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="cudaCommon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cudaCommon.cpp">
+    <ClCompile Include="cudaMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include=".\FilterFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloOpenCV", "HelloOpenCV\HelloOpenCV.vcxproj", "{89709FF6-155A-44A7-B666-465963530094}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8C6076C5-B47E-4EFF-822B-B4B6C23E1BFB}"
@@ -9,12 +9,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		doc\HelloOpenCV.vsd = doc\HelloOpenCV.vsd
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AmpFilters", "AmpFilters\AmpFilters.vcxproj", "{2A2D52F1-373E-4192-A489-97C30C156768}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A2D52F1-373E-4192-A489-97C30C156768}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2A2D52F1-373E-4192-A489-97C30C156768}.Debug|Win32.Build.0 = Debug|Win32
+		{2A2D52F1-373E-4192-A489-97C30C156768}.Release|Win32.ActiveCfg = Release|Win32
+		{2A2D52F1-373E-4192-A489-97C30C156768}.Release|Win32.Build.0 = Release|Win32
 		{89709FF6-155A-44A7-B666-465963530094}.Debug|Win32.ActiveCfg = Debug|Win32
 		{89709FF6-155A-44A7-B666-465963530094}.Debug|Win32.Build.0 = Debug|Win32
 		{89709FF6-155A-44A7-B666-465963530094}.Release|Win32.ActiveCfg = Release|Win32

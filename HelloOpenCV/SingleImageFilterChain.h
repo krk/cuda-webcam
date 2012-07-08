@@ -39,8 +39,6 @@
 
 #include "common.h"
 
-#include "cudaCommon.h"
-
 #include "SingleImageFilter.h"
 
 /**

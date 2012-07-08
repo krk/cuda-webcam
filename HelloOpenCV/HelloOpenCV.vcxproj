@@ -14,10 +14,11 @@
     <ProjectGuid>{89709FF6-155A-44A7-B666-465963530094}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>HelloOpenCV</RootNamespace>
+    <ProjectName>CudaFilters</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v90</PlatformToolset>
@@ -56,7 +57,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;FILTERAPI_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -93,6 +94,8 @@
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cudaMain.cpp" />
+    <ClCompile Include=".\FilterFactory.cpp" />
     <ClInclude Include="common.h" />
     <ClInclude Include="CpuCCLFilter.h" />
     <ClInclude Include="CpuMovingAverageFilter.h" />
@@ -101,6 +104,7 @@
     <ClInclude Include="CudaTexBoxBlurFilter.h" />
     <ClInclude Include="CudaTexInvertFilter.h" />
     <ClInclude Include="CudaTileFlipFilter.h" />
+    <ClInclude Include="FilterFactory.h" />
     <ClInclude Include="IdentityFilter.h" />
     <ClInclude Include="ISingleImageFilter.h" />
     <ClInclude Include="sepia.h" />
@@ -138,10 +142,6 @@
     </ClCompile>
     <ClInclude Include="cudaCommon.h" />
     <ClInclude Include="invert.h" />
-    <ClInclude Include="main.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -78,11 +78,11 @@ int main( int argc, char** argv )
 	//ISingleImageFilter* myFilter1 = new SingleCudaFilter(deviceInvertLaunch);
 	//ISingleImageFilter* myFilter1 = new CudaInvertFilter();
 
-	ISingleImageFilter* myFilter2 = new CpuInvertFilter();
+	ISingleImageFilter* myFilter2 = GetCpuInvertFilter();
 	
 	//ISingleImageFilter* myFilter3 = new SingleCudaFilter(deviceTileFlipLaunch);
 	//ISingleImageFilter* myFilter3 = new CudaTileFlipFilter();
-
+	/*
 	//ISingleImageFilter* myFilter4 = new SingleCudaTexFilter(deviceTexBoxBlurLaunch, "texBlur1");
 	ISingleImageFilter* myFilter4 = new CudaTexBoxBlurFilter();
 
@@ -98,12 +98,16 @@ int main( int argc, char** argv )
 
 	ISingleImageFilter* myFilter10 = new CpuMovingAverageFilter(10);	
 
+	ISingleImageFilter* myFilter11 = new AmpInvertFilter();	
+	*/
 	SingleImageFilterChain* myFilter = new SingleImageFilterChain();
+	myFilter->AppendFilter( myFilter2 );
+	/*
 	myFilter->AppendFilter( myFilter10 );
 	myFilter->AppendFilter( myFilter2 );
 	myFilter->AppendFilter( myFilter9 );
-	myFilter->AppendFilter( myFilter8 );
-
+	myFilter->AppendFilter( myFilter4 );
+	*/
 	myFilter->InitFilter(resizedImage->width, resizedImage->height, resizedImage->widthStep);
 	
 	// q tuþuna basana kadar dön.
@@ -135,8 +139,6 @@ int main( int argc, char** argv )
 	myFilter->ReleaseFilter();
 	
 	delete myFilter;
-
-	cudaThreadExit();
 
 	//exit( EXIT_SUCCESS );
 }

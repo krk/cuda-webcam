@@ -27,50 +27,33 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
-#ifndef MAIN_H_
-#define MAIN_H_
-
-/**
-	\file main.h
-	Main.cpp dosyasýndan içerilen baþlýk dosyasý.
-*/
-
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "opencv2\opencv.hpp"
+#ifndef AmpInvertFilter_H_
+#define AmpInvertFilter_H_
 
 #include "common.h"
 
-#include "cudaCommon.h"
+#include "SingleImageFilter.h"
 
+/**
+	\file AmpInvertFilter.h
+	AmpInvertFilter sýnýfýnýn tanýmýný içerir.
+*/
 
-#include "SingleImageFilterChain.h"
+class AmpInvertFilter : public SingleImageFilter
+{
 
-#include "SingleCudaFilter.h"
+public:
 
-#include "CpuInvertFilter.h"
-#include "CpuCCLFilter.h"
-#include "CpuMovingAverageFilter.h"
-#include "ThresholdFilter.h"
+	AmpInvertFilter()
+	{
+	}
 
-#include "SingleCudaTexFilter.h"
+	/** Görüntünün RGB kanallarýnýn tersini alýr. */
+	virtual void FilterImage(char* imageData);
 
-#include "IdentityFilter.h"
+private:
 
-#include "CudaSepiaFilter.h"
+	DISALLOW_COPY_AND_ASSIGN(AmpInvertFilter);
+};
 
-// CUDA kernel launcherlar
-#include "invert.h"
-#include "tileFlip.h"
-
-#include "texInvert.h"
-#include "texBoxBlur.h"
-#include "texAbsDiff.h"
-
-#include "CudaTileFlipFilter.h"
-#include "CudaInvertFilter.h"
-#include "CudaTexBoxBlurFilter.h"
-#include "CudaTexInvertFilter.h"
-
-#endif // MAIN_H_
+#endif // AmpInvertFilter_H_
