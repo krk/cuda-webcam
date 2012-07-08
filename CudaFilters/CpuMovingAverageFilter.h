@@ -71,15 +71,18 @@ public:
 	{
 		SingleImageFilter::InitFilter(width, height, rowStride);	
 
-		auxMovingAverage = (float*) malloc( sizeof(float) * rowStride / 3 * height );		
+		printf("malloc size: %i\n", rowStride / 3 * height);
+
+		// + 2: FilterImage code is buggy.
+		auxMovingAverage = (float*) malloc( sizeof(float) * (rowStride / 3 * height + 2 ) );		
 		auxFramesInAverage = 0;
 
-		memset( auxMovingAverage, 0, sizeof(float) * rowStride / 3 * height );
+		memset( auxMovingAverage, 0, sizeof(float) * (rowStride / 3 * height + 2 ) );
 	}
 
 	/** Birleþik elemanlarý bularak(max 255 adet) her birine ayrý bir gri tonu atar. */
 	virtual void FilterImage(char* imageData)
-	{
+	{		
 		for(int i=0; i<height; i++)
 		{
 			for(int j=0; j<width; j++)

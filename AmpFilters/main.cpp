@@ -117,5 +117,7 @@ int main( int argc, char** argv )
 	
 	delete myFilter;
 
-	//exit( EXIT_SUCCESS );
+	ReleaseCUDAThread();
+
+	exit( EXIT_SUCCESS );
 }
