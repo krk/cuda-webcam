@@ -12,26 +12,39 @@ using namespace concurrency;
 /** Görüntünün RGB kanallarýnýn tersini alýr. */
 void AmpInvertFilter::FilterImage(char* imageData)
 {
-	auto data = reinterpret_cast<unsigned int*>(imageData);
+	unsigned int* iImageData = (unsigned int*)malloc(3*width*height * sizeof(int));
+
+	// AMP'de char kullanilamiyor, veriyi int'e donustur.
+	for(int i=0; i<3*width*height; i++)
+	{
+		*( iImageData + i ) = ( unsigned int ) *( imageData + i );
+	}
 
 	const int size = 3*width*height;
-	array_view<const unsigned int, 1> img(size, data);
-	array_view<unsigned int, 1> result(size, data);
-	result.discard_data();
-
+	
+	// Veri üzerinde doðrudan çalýþabiliriz. (in-place).
+	array_view<unsigned int, 1> img(size, iImageData);	
+		
 	/*
 	for(int i=0; i<3*width*height; i++)
 	{
 		*( imageData + i ) = ( unsigned char ) ( 255 - *( imageData + i ) ); // her pikselin her kanalýnýn negatifini al.
 	}*/
 
-	parallel_for_each( 
-        // Define the compute domain, which is the set of threads that are created.
-        img.extent, 
-        // Define the code to run on each thread on the accelerator.
+	parallel_for_each(         
+        img.extent,         
         [=](index<1> idx) restrict(amp)
 		{
-			result[idx] = 255 - img[idx];
+			// Her kanalýn negatifi alýnýr.
+			img[idx] = 255 - img[idx];
 		}
     );
+
+	img.synchronize();
+
+	// AMP'de char kullanilamiyor, veriyi char'e donustur.
+	for(int i=0; i<3*width*height; i++)
+	{
+		*( imageData + i ) = ( char ) *( iImageData + i );
+	}
 }

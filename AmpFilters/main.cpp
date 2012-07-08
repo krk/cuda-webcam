@@ -78,7 +78,7 @@ int main( int argc, char** argv )
 	//ISingleImageFilter* myFilter1 = new SingleCudaFilter(deviceInvertLaunch);
 	//ISingleImageFilter* myFilter1 = new CudaInvertFilter();
 
-	ISingleImageFilter* myFilter2 = GetCpuInvertFilter();
+	ISingleImageFilter* myFilter2 = new AmpInvertFilter();
 	
 	//ISingleImageFilter* myFilter3 = new SingleCudaFilter(deviceTileFlipLaunch);
 	//ISingleImageFilter* myFilter3 = new CudaTileFlipFilter();
