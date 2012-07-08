@@ -47,16 +47,6 @@
 	CpuCCLFilter sýnýfýnýn tanýmýný içerir.
 */
 
-template<typename KeyType, typename MappedType>
-struct myMap
-{	
-	#ifdef _TR1
-		typedef std::tr1::unordered_map<KeyType, MappedType> type;
-	#else
-		typedef typename std::map<KeyType, MappedType> type;
-	#endif
-};
-
 /**
 	Cpu Connected Component Labeling filtre sýnýfý.
 

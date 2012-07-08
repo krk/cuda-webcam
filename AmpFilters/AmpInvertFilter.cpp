@@ -3,6 +3,11 @@
 
 using namespace concurrency;
 
+/**
+	\file AmpInvertFilter.cpp
+	AmpInvertFilter sýnýfýnýn metodlarýný içeren dosya.
+*/
+
 /** Görüntünün RGB kanallarýnýn tersini alýr. */
 void AmpInvertFilter::FilterImage(char* imageData)
 {

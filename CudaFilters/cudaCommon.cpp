@@ -31,7 +31,7 @@
 
 /**
 	\file cudaCommon.cpp
-	CUDA kullanan tüm sýnýflarda kullanýlan metodlarý içerilen dosya.
+	CUDA kullanan tüm sýnýflarda kullanýlan metodlarý içeren dosya.
 */
 
 /**
