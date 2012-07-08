@@ -3,12 +3,6 @@
 
 using namespace concurrency;
 
-/**
-	C++ AMP image invert filtre sýnýfý.
-
-	Bu sýnýf SingleImageFilter sýnýfýný gerçekleyerek C++ AMP kullanýr. Resmin negatifini almaya yarar.
-*/
-
 /** Görüntünün RGB kanallarýnýn tersini alýr. */
 void AmpInvertFilter::FilterImage(char* imageData)
 {

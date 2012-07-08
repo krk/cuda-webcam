@@ -27,20 +27,43 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
+/** 
+	\file FilterFactory.h
+	CudaFilters projesindeki filtreler için factory metodlarýný içeren baþlýk dosyasý.
+*/
+
 #ifndef FILTERFACTORY_H_
 #define FILTERFACTORY_H_
 
 #include "ISingleImageFilter.h"
 
-#if defined(FILTERAPI_EXPORT) // inside DLL
+#if defined(FILTERAPI_EXPORT)
 #   define FILTERAPI   __declspec(dllexport)
-#else // outside DLL
+#else
 #   define FILTERAPI   __declspec(dllimport)
-#endif  // XYZLIBRARY_EXPORT
+#endif
 
 #define FILTERENTRY __stdcall
 
 extern "C" FILTERAPI ISingleImageFilter* FILTERENTRY GetCpuInvertFilter();
+
+extern "C" FILTERAPI ISingleImageFilter* FILTERENTRY GetCpuCCLFilter();
+
+extern "C" FILTERAPI ISingleImageFilter* FILTERENTRY GetCpuMovingAverageFilter( int framesToAverage );
+
+extern "C" FILTERAPI ISingleImageFilter* FILTERENTRY GetCudaInvertFilter();
+
+extern "C" FILTERAPI ISingleImageFilter* FILTERENTRY GetCudaSepiaFilter();
+
+extern "C" FILTERAPI ISingleImageFilter* FILTERENTRY GetCudaTexBoxBlurFilter();
+
+extern "C" FILTERAPI ISingleImageFilter* FILTERENTRY GetCudaTexInvertFilter();
+
+extern "C" FILTERAPI ISingleImageFilter* FILTERENTRY GetCudaTileFlipFilter();
+
+extern "C" FILTERAPI ISingleImageFilter* FILTERENTRY GetIdentityFilter();
+
+extern "C" FILTERAPI ISingleImageFilter* FILTERENTRY GetThresholdFilter( unsigned char threshold );
 
 extern "C" FILTERAPI void FILTERENTRY ReleaseCUDAThread();
 

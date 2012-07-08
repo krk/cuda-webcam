@@ -32,6 +32,11 @@
 
 #include "common.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <map> 
+
 #include "SingleImageFilter.h"
 
 #include "boost\pending\disjoint_sets.hpp"
@@ -41,6 +46,16 @@
 	\file CpuCCLFilter.h
 	CpuCCLFilter sýnýfýnýn tanýmýný içerir.
 */
+
+template<typename KeyType, typename MappedType>
+struct myMap
+{	
+	#ifdef _TR1
+		typedef std::tr1::unordered_map<KeyType, MappedType> type;
+	#else
+		typedef typename std::map<KeyType, MappedType> type;
+	#endif
+};
 
 /**
 	Cpu Connected Component Labeling filtre sýnýfý.
@@ -88,7 +103,7 @@ public:
 				unsigned char b = *( imageData + idx * 3 + 0 );
 				unsigned char g = *( imageData + idx * 3 + 1 );
 				unsigned char r = *( imageData + idx * 3 + 2 );
-
+				
 				*( auxImageData + idx ) = ( unsigned char ) ( 0.3f * r + 0.59f * g + 0.11f * b ); // grayscale
 			}
 		}
@@ -198,7 +213,7 @@ void CpuCCLFilter::findConnectedComponents(int width, int height, int rowStride,
 {
 	// label bitmap	
 
-	// disjoint set için tip ve map tanýmlarý.
+	// disjoint set için tip ve map tanýmlarý.	
 	typedef std::map<short, std::size_t> rank_t; // element order.
 	typedef std::map<short, short> parent_t;
 

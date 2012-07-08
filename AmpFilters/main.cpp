@@ -73,41 +73,18 @@ int main( int argc, char** argv )
 	
 	IplImage* resizedImage = cvCreateImage(cvSize(640, 480), videoFrame->depth, videoFrame->nChannels);
 
-	//ISingleImageFilter* myFilter0 = new IdentityFilter();
-	
-	//ISingleImageFilter* myFilter1 = new SingleCudaFilter(deviceInvertLaunch);
-	//ISingleImageFilter* myFilter1 = new CudaInvertFilter();
+	ISingleImageFilter* cpuMovingAverage = GetCpuMovingAverageFilter( 10 );
+	ISingleImageFilter* ampInvert = new AmpInvertFilter();
+	ISingleImageFilter* cpuThreshold = GetThresholdFilter( 190 );
+	ISingleImageFilter* cudaTexBlur = GetCudaTexBoxBlurFilter();
 
-	ISingleImageFilter* myFilter2 = new AmpInvertFilter();
-	
-	//ISingleImageFilter* myFilter3 = new SingleCudaFilter(deviceTileFlipLaunch);
-	//ISingleImageFilter* myFilter3 = new CudaTileFlipFilter();
-	/*
-	//ISingleImageFilter* myFilter4 = new SingleCudaTexFilter(deviceTexBoxBlurLaunch, "texBlur1");
-	ISingleImageFilter* myFilter4 = new CudaTexBoxBlurFilter();
-
-	ISingleImageFilter* myFilter5 = new SingleCudaTexFilter(deviceTexAbsDiffLaunch, "texAbsDiff1");
-
-	//ISingleImageFilter* myFilter6 = new SingleCudaTexFilter(deviceTexInvertLaunch, "texInvert1");
-	//ISingleImageFilter* myFilter6 = new CudaTexInvertFilter();
-
-	//ISingleImageFilter* myFilter7 = new CudaSepiaFilter();
-	ISingleImageFilter* myFilter8 = new CpuCCLFilter();
-
-	ISingleImageFilter* myFilter9 = new ThresholdFilter(190);
-
-	ISingleImageFilter* myFilter10 = new CpuMovingAverageFilter(10);	
-
-	ISingleImageFilter* myFilter11 = new AmpInvertFilter();	
-	*/
 	SingleImageFilterChain* myFilter = new SingleImageFilterChain();
-	myFilter->AppendFilter( myFilter2 );
-	/*
-	myFilter->AppendFilter( myFilter10 );
-	myFilter->AppendFilter( myFilter2 );
-	myFilter->AppendFilter( myFilter9 );
-	myFilter->AppendFilter( myFilter4 );
-	*/
+	
+	myFilter->AppendFilter( cpuMovingAverage );
+	myFilter->AppendFilter( ampInvert );
+	myFilter->AppendFilter( cpuThreshold );
+	myFilter->AppendFilter( cudaTexBlur );
+	
 	myFilter->InitFilter(resizedImage->width, resizedImage->height, resizedImage->widthStep);
 	
 	// q tuþuna basana kadar dön.

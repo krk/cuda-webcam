@@ -42,7 +42,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\OpenCV2.2\include;D:\boost_1_46_1;D:\projects\HelloOpenCV-git\HelloOpenCV;$(IncludePath)</IncludePath>
+    <IncludePath>C:\OpenCV2.2\include;D:\boost_1_46_1;D:\projects\HelloOpenCV-git\CudaFilters;$(IncludePath)</IncludePath>
     <LibraryPath>C:\OpenCV2.2\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -78,7 +78,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HelloOpenCV\HelloOpenCV.vcxproj">
+    <ProjectReference Include="..\CudaFilters\CudaFilters.vcxproj">
       <Project>{89709ff6-155a-44a7-b666-465963530094}</Project>
     </ProjectReference>
   </ItemGroup>
