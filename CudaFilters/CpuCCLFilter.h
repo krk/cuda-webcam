@@ -171,18 +171,18 @@ void hsl_to_rgb(float h, float s, float l, int* R, int* G, int* B)
 {
 	if ( s == 0 )                       //HSL from 0 to 1
 	{
-	   *R = l * 255;                      //RGB results from 0 to 255
-	   *G = l * 255;
-	   *B = l * 255;
+	   *R = (int)(l * 255);                      //RGB results from 0 to 255
+	   *G = (int)(l * 255);
+	   *B = (int)(l * 255);
 	}
 	else
 	{
 		float q = l < 0.5f ? l * (1 + s) : l + s - l * s;
 		float p = 2 * l - q;
 
-		*R = 255 * hue2rgb(p, q, h + 1.0f/3);
-		*G = 255 * hue2rgb(p, q, h);
-		*B = 255 * hue2rgb(p, q, h - 1.0f/3);
+		*R = (int)(255 * hue2rgb(p, q, h + 1.0f/3));
+		*G = (int)(255 * hue2rgb(p, q, h));
+		*B = (int)(255 * hue2rgb(p, q, h - 1.0f/3));
 	}
 }
 
