@@ -1,16 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8C6076C5-B47E-4EFF-822B-B4B6C23E1BFB}"
 	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
 		doc\HelloOpenCV-2.vsd = doc\HelloOpenCV-2.vsd
 		doc\HelloOpenCV.vsd = doc\HelloOpenCV.vsd
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AmpFilters", "AmpFilters\AmpFilters.vcxproj", "{2A2D52F1-373E-4192-A489-97C30C156768}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CudaFilters", "CudaFilters\CudaFilters.vcxproj", "{89709FF6-155A-44A7-B666-465963530094}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FilteringApp", "FilteringApp\FilteringApp.vcxproj", "{E6F9AAFD-1E17-4188-BD04-5DD511A2489E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,13 +21,15 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2A2D52F1-373E-4192-A489-97C30C156768}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2A2D52F1-373E-4192-A489-97C30C156768}.Debug|Win32.Build.0 = Debug|Win32
 		{2A2D52F1-373E-4192-A489-97C30C156768}.Release|Win32.ActiveCfg = Release|Win32
 		{2A2D52F1-373E-4192-A489-97C30C156768}.Release|Win32.Build.0 = Release|Win32
 		{89709FF6-155A-44A7-B666-465963530094}.Debug|Win32.ActiveCfg = Debug|Win32
-		{89709FF6-155A-44A7-B666-465963530094}.Debug|Win32.Build.0 = Debug|Win32
 		{89709FF6-155A-44A7-B666-465963530094}.Release|Win32.ActiveCfg = Release|Win32
 		{89709FF6-155A-44A7-B666-465963530094}.Release|Win32.Build.0 = Release|Win32
+		{E6F9AAFD-1E17-4188-BD04-5DD511A2489E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E6F9AAFD-1E17-4188-BD04-5DD511A2489E}.Debug|Win32.Build.0 = Debug|Win32
+		{E6F9AAFD-1E17-4188-BD04-5DD511A2489E}.Release|Win32.ActiveCfg = Release|Win32
+		{E6F9AAFD-1E17-4188-BD04-5DD511A2489E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

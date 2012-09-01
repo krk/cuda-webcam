@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="FilteringApp">
+    <file>Resources/3x3_grid_2.png</file>
+    <file>Resources/picture.png</file>
+  </qresource>
+</RCC>
