@@ -1,13 +1,16 @@
 #pragma once
-#ifndef FILTERFACTORY_H
-#define FILTERFACTORY_H
+#ifndef FILTERINGAPP_FILTERFACTORY_H
+#define FILTERINGAPP_FILTERFACTORY_H
 
 #include <QtGui/QMainWindow>
 #include "..\CudaFilters\FilterFactory.h"
 
 #include <vector>
 #include "boost\assert.hpp"
+
 #include "..\CudaFilters\SingleImageFilterChain.h"
+
+typedef ISingleImageFilter* (__stdcall *filterFactoryFunctorType)();
 
 struct FilterFactory{
 
@@ -17,7 +20,7 @@ public:
 	 FilterFactory(const FilterFactory &other){ Create = other.Create; }
 	 FilterFactory(filterFactoryFunctorType create){ Create = create; }
 	 ~FilterFactory() {}
-	 FilterFactory()  {}
+	 FilterFactory()  { Create = 0; }
 	 bool hasConfig(){ return false; }
 };
 
@@ -30,4 +33,4 @@ enum DataRoles
 	FilterFactoryConfig = Qt::UserRole + 3,
 };
 
-#endif // FILTERFACTORY_H
+#endif // FILTERINGAPP_FILTERFACTORY_H

@@ -30,9 +30,7 @@
 #ifndef AmpInvertFilter_H_
 #define AmpInvertFilter_H_
 
-#include "common.h"
-
-#include "SingleImageFilter.h"
+#include "..\CudaFilters\SingleImageFilter.h"
 
 /**
 	\file AmpInvertFilter.h

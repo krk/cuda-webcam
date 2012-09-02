@@ -27,28 +27,24 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
-#ifndef MAIN_H_
-#define MAIN_H_
-
-/**
-	\file main.h
-	Main.cpp dosyasýndan içerilen baþlýk dosyasý.
+/** 
+	\file FilterFactory.h
+	AmpFilters projesindeki filtreler için factory metodlarýný içeren baþlýk dosyasý.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef AMPFILTERFACTORY_H_
+#define AMPFILTERFACTORY_H_
 
-#include "opencv2\opencv.hpp"
+#include "..\CudaFilters\ISingleImageFilter.h"
 
-#include "common.h"
+#if defined(FILTERAPI_EXPORT)
+#   define FILTERAPI   __declspec(dllexport)
+#else
+#   define FILTERAPI   __declspec(dllimport)
+#endif
 
-#include "ISingleImageFilter.h"
+#define FILTERENTRY __stdcall
 
-#include "SingleImageFilterChain.h"
+extern "C" FILTERAPI ISingleImageFilter* FILTERENTRY GetAmpInvertFilter();
 
-#include "FilterFactory.h"
-
-// AMP metodlar
-#include "AmpInvertFilter.h"
-
-#endif // MAIN_H_
+#endif // AMPFILTERFACTORY_H_

@@ -18,10 +18,7 @@
     <ClInclude Include="AmpInvertFilter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\HelloOpenCV\common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="main.h">
+    <ClInclude Include="FilterFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,7 +26,7 @@
     <ClCompile Include="AmpInvertFilter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="FilterFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

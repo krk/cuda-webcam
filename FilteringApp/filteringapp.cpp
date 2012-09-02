@@ -1,8 +1,4 @@
 ﻿#include "filteringapp.h"
-#include <qstandarditemmodel.h>
-#include <QItemSelectionModel>
-#include <QMetaType>
-#include "FilterFactory.h"
 
 FilteringApp::FilteringApp(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
@@ -47,6 +43,23 @@ FilteringApp::FilteringApp(QWidget *parent, Qt::WFlags flags)
 		SIGNAL(clicked()),
 		this, 
 		SLOT(pbMoveFilterDown_clicked()));	
+
+	connect(
+		ui.actionCapture,
+		SIGNAL(triggered(bool)),
+		this,
+		SLOT(actionCapture_triggered(bool)));
+
+	connect(
+		ui.actionProcess,
+		SIGNAL(triggered(bool)),
+		this,
+		SLOT(actionProcess_triggered(bool)));	
+
+	connect(this,
+		SIGNAL(filterChanged()),
+		this,
+		SLOT(changeFilter()));
 }
 
 ISingleImageFilter* __stdcall CpuMovingAverageFilter()
@@ -94,6 +107,9 @@ void FilteringApp::setupFilterListCombo()
 	model->appendRow(item);	
 
 	item = getFilterItem("Threshold", &ThresholdFilter);
+	model->appendRow(item);	
+	
+	item = getFilterItem("C++ AMP Invert", &GetAmpInvertFilter);
 	model->appendRow(item);	
 }
 
@@ -169,6 +185,8 @@ void FilteringApp::pbAddFilter_clicked()
 	/* Add new item to the list. */
 	QStandardItemModel *lvModel = (QStandardItemModel *)ui.lvFilters->model();
 	lvModel->appendRow(listItem);
+
+	emit filterChanged();
 }
 
 void FilteringApp::pbRemoveFilter_clicked()
@@ -184,6 +202,8 @@ void FilteringApp::pbRemoveFilter_clicked()
 
 	/* Remove item from model. */
 	lvModel->removeRow(index.row());
+
+	emit filterChanged();
 }
 
 
@@ -213,6 +233,8 @@ void FilteringApp::pbMoveFilterUp_clicked()
 
 	/* Select new index. */
 	ui.lvFilters->setCurrentIndex(newIndex);
+
+	emit filterChanged();
 }
 
 void FilteringApp::pbMoveFilterDown_clicked()
@@ -241,10 +263,14 @@ void FilteringApp::pbMoveFilterDown_clicked()
 
 	/* Select new index. */
 	ui.lvFilters->setCurrentIndex(newIndex);
+
+	emit filterChanged();
 }
 
-SingleImageFilterChain* FilteringApp::GetFilterChain()
+vector<FilterFactory> FilteringApp::GetFilters()
 {
+	vector<FilterFactory> ret;
+
 	/* Get listview model. */
 	QStandardItemModel *lvModel = (QStandardItemModel *)ui.lvFilters->model();
 
@@ -263,16 +289,43 @@ SingleImageFilterChain* FilteringApp::GetFilterChain()
 		if(data.isNull() || !data.isValid())
 			continue;
 
+		/* Get FilterFactory object. */
 		FilterFactory factory = data.value<FilterFactory>();
-		ISingleImageFilter *filter = factory.Create();
 
-		chain->AppendFilter(filter);
+		/* Push factory to return vector. */
+		ret.push_back(factory);
 	}
 
-	return chain;
+	return ret;
+}
+
+void FilteringApp::actionCapture_triggered(bool checked)
+{
+	ui.camDual->isCaptureEnabled = checked;
+}
+
+void FilteringApp::actionProcess_triggered(bool checked)
+{
+	ui.camDual->isProcessingEnabled = checked;
+}
+
+void FilteringApp::changeFilter()
+{	
+	vector<FilterFactory> filters = GetFilters();
+
+	ui.camDual->changeFilter(filters);
 }
 
 FilteringApp::~FilteringApp()
 {
 
 }
+
+#if _MSC_VER < 1700 
+/*  Switch toolset to v110, include AmpFilters as a reference and rebuild to use AmpFilters. 
+	Might need Windows SDK ver. 8 for opengl32.lib and friends */
+ISingleImageFilter* __stdcall GetAmpInvertFilter()
+{
+	return GetCpuInvertFilter();
+}
+#endif

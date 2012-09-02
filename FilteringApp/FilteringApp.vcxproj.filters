@@ -38,9 +38,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="filteringapp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_filteringapp.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -50,16 +47,31 @@
     <ClCompile Include="GeneratedFiles\qrc_filteringapp.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="GLDualCamView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_GLDualCamView.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_GLDualCamView.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="FilteringApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="filteringapp.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="filteringapp.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="filteringapp.qrc">
       <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GLDualCamView.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="FilteringApp.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'filteringapp.ui'
 **
-** Created: Sun Sep 2 13:40:52 2012
+** Created: Sun Sep 2 21:55:15 2012
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -10,12 +10,13 @@
 #ifndef UI_FILTERINGAPP_H
 #define UI_FILTERINGAPP_H
 
+#include <GLDualCamView.h>
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QComboBox>
-#include <QtGui/QFormLayout>
+#include <QtGui/QFrame>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
@@ -39,9 +40,7 @@ public:
     QWidget *centralWidget;
     QGroupBox *groupBox;
     QListView *lvFilters;
-    QWidget *formLayoutWidget;
-    QFormLayout *formLayout;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout_2;
     QSpacerItem *verticalSpacer;
     QVBoxLayout *verticalLayout;
@@ -49,11 +48,13 @@ public:
     QPushButton *pbRemove;
     QPushButton *pbMoveFilterDown;
     QSpacerItem *verticalSpacer_2;
-    QWidget *widget1;
+    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout;
     QLabel *lblFilterType;
     QComboBox *cmbFilterType;
     QPushButton *pbAddFilter;
+    QFrame *frame;
+    GLDualCamView *camDual;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -61,7 +62,7 @@ public:
     {
         if (FilteringAppClass->objectName().isEmpty())
             FilteringAppClass->setObjectName(QString::fromUtf8("FilteringAppClass"));
-        FilteringAppClass->resize(696, 389);
+        FilteringAppClass->resize(1079, 664);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -84,22 +85,14 @@ public:
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(10, 60, 671, 241));
+        groupBox->setGeometry(QRect(10, 60, 391, 241));
         lvFilters = new QListView(groupBox);
         lvFilters->setObjectName(QString::fromUtf8("lvFilters"));
         lvFilters->setGeometry(QRect(10, 20, 256, 211));
-        formLayoutWidget = new QWidget(groupBox);
-        formLayoutWidget->setObjectName(QString::fromUtf8("formLayoutWidget"));
-        formLayoutWidget->setGeometry(QRect(390, 20, 271, 211));
-        formLayout = new QFormLayout(formLayoutWidget);
-        formLayout->setSpacing(6);
-        formLayout->setContentsMargins(11, 11, 11, 11);
-        formLayout->setObjectName(QString::fromUtf8("formLayout"));
-        formLayout->setContentsMargins(0, 0, 0, 0);
-        widget = new QWidget(groupBox);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(280, 20, 97, 211));
-        verticalLayout_2 = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(groupBox);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(280, 20, 97, 211));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
@@ -111,19 +104,19 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        pbMoveFilterUp = new QPushButton(widget);
+        pbMoveFilterUp = new QPushButton(layoutWidget);
         pbMoveFilterUp->setObjectName(QString::fromUtf8("pbMoveFilterUp"));
         pbMoveFilterUp->setDefault(false);
         pbMoveFilterUp->setFlat(false);
 
         verticalLayout->addWidget(pbMoveFilterUp);
 
-        pbRemove = new QPushButton(widget);
+        pbRemove = new QPushButton(layoutWidget);
         pbRemove->setObjectName(QString::fromUtf8("pbRemove"));
 
         verticalLayout->addWidget(pbRemove);
 
-        pbMoveFilterDown = new QPushButton(widget);
+        pbMoveFilterDown = new QPushButton(layoutWidget);
         pbMoveFilterDown->setObjectName(QString::fromUtf8("pbMoveFilterDown"));
         pbMoveFilterDown->setDefault(false);
         pbMoveFilterDown->setFlat(false);
@@ -137,20 +130,20 @@ public:
 
         verticalLayout_2->addItem(verticalSpacer_2);
 
-        widget1 = new QWidget(centralWidget);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        widget1->setGeometry(QRect(10, 10, 474, 30));
-        horizontalLayout = new QHBoxLayout(widget1);
+        layoutWidget1 = new QWidget(centralWidget);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 10, 474, 30));
+        horizontalLayout = new QHBoxLayout(layoutWidget1);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        lblFilterType = new QLabel(widget1);
+        lblFilterType = new QLabel(layoutWidget1);
         lblFilterType->setObjectName(QString::fromUtf8("lblFilterType"));
 
         horizontalLayout->addWidget(lblFilterType);
 
-        cmbFilterType = new QComboBox(widget1);
+        cmbFilterType = new QComboBox(layoutWidget1);
         cmbFilterType->setObjectName(QString::fromUtf8("cmbFilterType"));
         QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
         sizePolicy1.setHorizontalStretch(0);
@@ -161,11 +154,20 @@ public:
 
         horizontalLayout->addWidget(cmbFilterType);
 
-        pbAddFilter = new QPushButton(widget1);
+        pbAddFilter = new QPushButton(layoutWidget1);
         pbAddFilter->setObjectName(QString::fromUtf8("pbAddFilter"));
 
         horizontalLayout->addWidget(pbAddFilter);
 
+        frame = new QFrame(centralWidget);
+        frame->setObjectName(QString::fromUtf8("frame"));
+        frame->setGeometry(QRect(410, 70, 661, 501));
+        frame->setStyleSheet(QString::fromUtf8("background-color: blue;"));
+        frame->setFrameShape(QFrame::StyledPanel);
+        frame->setFrameShadow(QFrame::Raised);
+        camDual = new GLDualCamView(frame);
+        camDual->setObjectName(QString::fromUtf8("camDual"));
+        camDual->setGeometry(QRect(10, 10, 640, 480));
         FilteringAppClass->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(FilteringAppClass);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));

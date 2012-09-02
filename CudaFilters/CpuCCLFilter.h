@@ -98,7 +98,7 @@ public:
 			}
 		}
 		
-		findConnectedComponents<true>( width, height, rowStride / 3, auxImageData, auxImageDataOut, auxOutLabelBitmap );
+		findConnectedComponents<false>( width, height, rowStride / 3, auxImageData, auxImageDataOut, auxOutLabelBitmap );
 
 		memcpy( imageData, auxImageDataOut, sizeof(char) * rowStride * height );
 

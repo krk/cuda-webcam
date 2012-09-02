@@ -19,7 +19,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -42,13 +42,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\OpenCV2.2\include;D:\boost_1_46_1;D:\projects\HelloOpenCV-git\CudaFilters;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\OpenCV2.2\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>d:\inc\OpenCV2.2\include;D:\inc\boost_1_46_1;D:\projects\HelloOpenCV-git\CudaFilters;$(IncludePath)</IncludePath>
+    <LibraryPath>d:\inc\OpenCV2.2\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDLL;%(PreprocessorDefinitions);FILTERAPI_EXPORT</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -69,13 +70,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\HelloOpenCV\common.h" />
     <ClInclude Include="AmpInvertFilter.h" />
-    <ClInclude Include="main.h" />
+    <ClInclude Include="FilterFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AmpInvertFilter.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="FilterFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CudaFilters\CudaFilters.vcxproj">
