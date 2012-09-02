@@ -66,6 +66,9 @@
     <ClInclude Include="GeneratedFiles\ui_filteringapp.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="FilterFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FilteringApp.rc" />

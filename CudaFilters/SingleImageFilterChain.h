@@ -26,9 +26,11 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
-
+#pragma once
 #ifndef SINGLEIMAGEFILTERCHAIN_H_
 #define SINGLEIMAGEFILTERCHAIN_H_
+
+using std::vector;
 
 /** 
 	\file SingleImageFilterChain.h
@@ -36,7 +38,7 @@
 */
 
 #include <vector>
-
+#include "boost\assert.hpp"
 #include "common.h"
 
 #include "SingleImageFilter.h"
@@ -50,7 +52,7 @@
 class SingleImageFilterChain : public SingleImageFilter
 {
 private:
-	std::vector<ISingleImageFilter*> vecFilters;
+	vector<ISingleImageFilter*> vecFilters;
 
 	DISALLOW_COPY_AND_ASSIGN(SingleImageFilterChain);
 

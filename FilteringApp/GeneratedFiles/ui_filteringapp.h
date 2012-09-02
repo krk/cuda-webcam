@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'filteringapp.ui'
 **
-** Created: Sat Sep 1 13:17:32 2012
+** Created: Sun Sep 2 13:40:52 2012
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

@@ -1,9 +1,15 @@
+#pragma once
 #ifndef FILTERINGAPP_H
 #define FILTERINGAPP_H
 
 #include <QtGui/QMainWindow>
 #include "ui_filteringapp.h"
 #include "..\CudaFilters\FilterFactory.h"
+#include <QString>
+#include <QStandardItem>
+#include "..\CudaFilters\SingleImageFilterChain.h"
+
+typedef ISingleImageFilter* (__stdcall *filterFactoryFunctorType)();
 
 class FilteringApp : public QMainWindow
 {
@@ -16,28 +22,17 @@ public:
 private:
 	Ui::FilteringAppClass ui;
 	void setupFilterListView();	
+	void setupFilterListCombo();
+	QStandardItem* getFilterItem(QString text, filterFactoryFunctorType factory);	
+	SingleImageFilterChain* GetFilterChain();
+
 private slots:
 	void filterListSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+	void cmbFiltersIndexChanged(int index);
+	void pbAddFilter_clicked();
+	void pbRemoveFilter_clicked();
+	void pbMoveFilterUp_clicked();
+	void pbMoveFilterDown_clicked();
 };
-
-enum DataRoles
-{
-	FilterFactoryData = Qt::UserRole + 2,
-};
-
-typedef ISingleImageFilter* (*filterFactoryFunctorType)();
-
-struct FilterFactory{
-
-public:
-	 filterFactoryFunctorType Create;	 
-
-	 FilterFactory(const FilterFactory &other){ Create = other.Create; }
-	 ~FilterFactory(){}
-	 FilterFactory()  {}
-};
-
-Q_DECLARE_METATYPE(FilterFactory)
-Q_DECLARE_METATYPE(FilterFactory*)
 
 #endif // FILTERINGAPP_H

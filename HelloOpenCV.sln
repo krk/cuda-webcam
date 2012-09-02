@@ -13,6 +13,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CudaFilters", "CudaFilters\CudaFilters.vcxproj", "{89709FF6-155A-44A7-B666-465963530094}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FilteringApp", "FilteringApp\FilteringApp.vcxproj", "{E6F9AAFD-1E17-4188-BD04-5DD511A2489E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{89709FF6-155A-44A7-B666-465963530094} = {89709FF6-155A-44A7-B666-465963530094}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

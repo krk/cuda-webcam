@@ -41,6 +41,7 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\inc\boost_1_46_1;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,6 +119,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FilterFactory.h" />
     <ClInclude Include="GeneratedFiles\ui_filteringapp.h" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +137,11 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FilteringApp.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CudaFilters\CudaFilters.vcxproj">
+      <Project>{89709ff6-155a-44a7-b666-465963530094}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
