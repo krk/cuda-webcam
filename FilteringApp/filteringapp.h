@@ -15,7 +15,10 @@
 #include <QItemSelectionModel>
 #include <QMetaType>
 #include "opencv2\opencv.hpp"
+
+#include "NumericFilterParameter.h"
 #include "FilterFactory.h"
+
 
 class FilteringApp : public QMainWindow
 {
@@ -28,9 +31,11 @@ public:
 private:
 	Ui::FilteringAppClass ui;
 	void setupFilterListView();	
-	void setupFilterListCombo();
-	QStandardItem* getFilterItem(QString text, filterFactoryFunctorType factory);		
+	void setupFilterListCombo();	
+	QStandardItem* getFilterItem(QString text, filterFactoryFunctorType factory);
+	QStandardItem* getFilterItem(QString text, filterFactoryFunctorType factory, NumericFilterParameter* parameter);
 	vector<FilterFactory> GetFilters();
+	void setupParameters(FilterFactory* factory);
 
 private slots:
 	void filterListSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
@@ -42,6 +47,7 @@ private slots:
 	void actionCapture_triggered(bool checked);
 	void actionProcess_triggered(bool checked);
 	void changeFilter();
+	void spinParameter_changed(int value);
 
 signals:
 	void filterChanged();	

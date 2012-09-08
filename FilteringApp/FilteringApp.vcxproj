@@ -42,8 +42,8 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">d:\inc\opencv2.2\include;D:\inc\boost_1_46_1;$(IncludePath)</IncludePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">d:\inc\opencv2.2\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;</LibraryPath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\inc\opencv2.4\opencv\include;D:\inc\boost_1_46_1;D:\inc\opencv2.4\opencv\modules\contrib\include;D:\inc\opencv2.4\opencv\modules\highgui\include;D:\inc\opencv2.4\opencv\modules\ml\include;D:\inc\opencv2.4\opencv\modules\calib3d\include;D:\inc\opencv2.4\opencv\modules\objdetect\include;D:\inc\opencv2.4\opencv\modules\features2d\include;D:\inc\opencv2.4\opencv\modules\video\include;D:\inc\opencv2.4\opencv\modules\photo\include;D:\inc\opencv2.4\opencv\modules\imgproc\include;D:\inc\opencv2.4\opencv\modules\flann\include;D:\inc\opencv2.4\opencv\modules\core\include;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\inc\opencv2.4\build\lib\Release;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -59,7 +59,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;QtCored4.lib;QtGuid4.lib;opencv_core220.lib;opencv_highgui220.lib;opencv_imgproc220.lib;QtOpenGLd4.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;QtCored4.lib;QtGuid4.lib;opencv_core242.lib;opencv_highgui242.lib;opencv_imgproc242.lib;QtOpenGLd4.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FilteringApp.cpp" />
+    <ClCompile Include="NumericFilterParameter.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_filteringapp.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -129,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FilterFactory.h" />
+    <ClInclude Include="NumericFilterParameter.h" />
     <ClInclude Include="GeneratedFiles\ui_filteringapp.h" />
     <CustomBuild Include="GLDualCamView.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -153,9 +155,6 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="FilteringApp.rc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AmpFilters\AmpFilters.vcxproj">

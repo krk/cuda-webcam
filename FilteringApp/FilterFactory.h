@@ -10,18 +10,29 @@
 
 #include "..\CudaFilters\SingleImageFilterChain.h"
 
-typedef ISingleImageFilter* (__stdcall *filterFactoryFunctorType)();
+#include "NumericFilterParameter.h"
 
-struct FilterFactory{
+class FilterFactory;
+
+typedef ISingleImageFilter* (__stdcall *filterFactoryCreateType)();
+typedef ISingleImageFilter* (__stdcall *filterFactoryFunctorType)(FilterFactory*);
+
+class FilterFactory{
 
 public:
-	 filterFactoryFunctorType Create;	 
+	 filterFactoryFunctorType Create;	 	 
+	 NumericFilterParameter* Parameter;
 
-	 FilterFactory(const FilterFactory &other){ Create = other.Create; }
-	 FilterFactory(filterFactoryFunctorType create){ Create = create; }
+	 FilterFactory(const FilterFactory &other){ Create = other.Create; Parameter = other.Parameter; }
+	 FilterFactory(filterFactoryFunctorType create, NumericFilterParameter* parameter = NULL)
+	 { 
+		 Create = create; 
+		 Parameter = parameter;
+	 }
+
 	 ~FilterFactory() {}
-	 FilterFactory()  { Create = 0; }
-	 bool hasConfig(){ return false; }
+	 FilterFactory()  { Create = 0; Parameter = NULL; }
+	 virtual bool hasConfig(){ return Parameter != NULL; }
 };
 
 Q_DECLARE_METATYPE(FilterFactory)

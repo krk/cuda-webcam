@@ -59,6 +59,9 @@
     <ClCompile Include="FilteringApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NumericFilterParameter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="filteringapp.ui">
@@ -81,8 +84,8 @@
     <ClInclude Include="FilterFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="FilteringApp.rc" />
+    <ClInclude Include="NumericFilterParameter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

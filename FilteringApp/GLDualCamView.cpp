@@ -20,7 +20,7 @@ GLDualCamView::GLDualCamView(QWidget *parent)
 	{
 		// Tutacak geçersiz ise programdan çýk.
 		qDebug() << "Kamera tutaca?? edinilemedi...\n";
-		throw runtime_error("Kamera tutaca?? edinilemedi.");
+		return;
 	}
 
 	_rawFrame = 0;
@@ -105,7 +105,7 @@ void GLDualCamView::captureFrame()
 	if( !_rawFrame )
 	{
 		qDebug() << "Kare yakalanamad?.";
-		throw runtime_error("Kare yakalanamad?.");
+		return;
 	}
 	
 	if(_processedFrame == 0)
@@ -114,7 +114,7 @@ void GLDualCamView::captureFrame()
 	cvResize( _rawFrame, _processedFrame );
 
 	if( !_processedFrame )
-		throw runtime_error("Cannot resize image.");
+		return;
 	
 	if(isCaptureEnabled 
 		&& isProcessingEnabled 
@@ -123,7 +123,7 @@ void GLDualCamView::captureFrame()
 		/* BUG: Ayni threadde yaratilmasi icin burada create metodlari cagriliyor, texture iceren filtreler calismiyor! */
 		SingleImageFilterChain* chain = new SingleImageFilterChain();
 		for(vector<FilterFactory>::iterator it = _filters.begin(); it != _filters.end(); ++it) {
-			chain->AppendFilter(it->Create());
+			chain->AppendFilter(it->Create(&(*it)));
 		}
 
 		_filter = chain;

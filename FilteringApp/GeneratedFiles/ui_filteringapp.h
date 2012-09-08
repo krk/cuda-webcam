@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'filteringapp.ui'
 **
-** Created: Sun Sep 2 21:55:15 2012
+** Created: Sat Sep 8 17:05:29 2012
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -16,6 +16,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QComboBox>
+#include <QtGui/QFormLayout>
 #include <QtGui/QFrame>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHBoxLayout>
@@ -25,6 +26,7 @@
 #include <QtGui/QMainWindow>
 #include <QtGui/QPushButton>
 #include <QtGui/QSpacerItem>
+#include <QtGui/QSpinBox>
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 #include <QtGui/QVBoxLayout>
@@ -55,6 +57,13 @@ public:
     QPushButton *pbAddFilter;
     QFrame *frame;
     GLDualCamView *camDual;
+    QGroupBox *grpParameters;
+    QWidget *formLayoutWidget;
+    QFormLayout *formLayout;
+    QLabel *lblParameterCaption;
+    QSpinBox *spinParameter;
+    QSpacerItem *verticalSpacer_3;
+    QSpacerItem *verticalSpacer_4;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -168,6 +177,38 @@ public:
         camDual = new GLDualCamView(frame);
         camDual->setObjectName(QString::fromUtf8("camDual"));
         camDual->setGeometry(QRect(10, 10, 640, 480));
+        grpParameters = new QGroupBox(centralWidget);
+        grpParameters->setObjectName(QString::fromUtf8("grpParameters"));
+        grpParameters->setGeometry(QRect(10, 310, 391, 80));
+        grpParameters->setStyleSheet(QString::fromUtf8("display: none;"));
+        formLayoutWidget = new QWidget(grpParameters);
+        formLayoutWidget->setObjectName(QString::fromUtf8("formLayoutWidget"));
+        formLayoutWidget->setGeometry(QRect(10, 20, 371, 51));
+        formLayout = new QFormLayout(formLayoutWidget);
+        formLayout->setSpacing(6);
+        formLayout->setContentsMargins(11, 11, 11, 11);
+        formLayout->setObjectName(QString::fromUtf8("formLayout"));
+        formLayout->setContentsMargins(0, 0, 0, 0);
+        lblParameterCaption = new QLabel(formLayoutWidget);
+        lblParameterCaption->setObjectName(QString::fromUtf8("lblParameterCaption"));
+
+        formLayout->setWidget(1, QFormLayout::LabelRole, lblParameterCaption);
+
+        spinParameter = new QSpinBox(formLayoutWidget);
+        spinParameter->setObjectName(QString::fromUtf8("spinParameter"));
+        spinParameter->setMaximum(255);
+        spinParameter->setValue(100);
+
+        formLayout->setWidget(1, QFormLayout::FieldRole, spinParameter);
+
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        formLayout->setItem(2, QFormLayout::FieldRole, verticalSpacer_3);
+
+        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        formLayout->setItem(0, QFormLayout::FieldRole, verticalSpacer_4);
+
         FilteringAppClass->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(FilteringAppClass);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -217,6 +258,9 @@ public:
 #endif // QT_NO_STATUSTIP
         lblFilterType->setText(QApplication::translate("FilteringAppClass", "Filte&r Type:", 0, QApplication::UnicodeUTF8));
         pbAddFilter->setText(QApplication::translate("FilteringAppClass", "Add Filter", 0, QApplication::UnicodeUTF8));
+        grpParameters->setTitle(QApplication::translate("FilteringAppClass", "Selected Filter Parameters", 0, QApplication::UnicodeUTF8));
+        lblParameterCaption->setText(QApplication::translate("FilteringAppClass", "Caption:", 0, QApplication::UnicodeUTF8));
+        spinParameter->setPrefix(QString());
     } // retranslateUi
 
 };
