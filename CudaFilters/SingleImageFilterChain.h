@@ -38,7 +38,6 @@ using std::vector;
 */
 
 #include <vector>
-#include "boost\assert.hpp"
 #include "common.h"
 
 #include "SingleImageFilter.h"

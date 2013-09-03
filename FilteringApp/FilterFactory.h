@@ -6,7 +6,6 @@
 #include "..\CudaFilters\FilterFactory.h"
 
 #include <vector>
-#include "boost\assert.hpp"
 
 #include "..\CudaFilters\SingleImageFilterChain.h"
 
