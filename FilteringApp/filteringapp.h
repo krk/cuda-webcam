@@ -2,7 +2,7 @@
 #ifndef FILTERINGAPP_H
 #define FILTERINGAPP_H
 
-#include <QtGui/QMainWindow>
+#include <QtWidgets\QMainWindow>
 #include "ui_filteringapp.h"
 #include "..\CudaFilters\FilterFactory.h"
 #include "..\AmpFilters\FilterFactory.h"
@@ -25,7 +25,7 @@ class FilteringApp : public QMainWindow
 	Q_OBJECT
 
 public:
-	FilteringApp(QWidget *parent = 0, Qt::WFlags flags = 0);
+	FilteringApp(QWidget *parent = 0, Qt::WindowFlags flags = 0);
 	~FilteringApp();
 
 private:

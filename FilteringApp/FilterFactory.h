@@ -2,7 +2,7 @@
 #ifndef FILTERINGAPP_FILTERFACTORY_H
 #define FILTERINGAPP_FILTERFACTORY_H
 
-#include <QtGui/QMainWindow>
+#include <QtWidgets\QMainWindow>
 #include "..\CudaFilters\FilterFactory.h"
 
 #include <vector>

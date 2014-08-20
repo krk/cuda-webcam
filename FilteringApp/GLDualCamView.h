@@ -2,7 +2,6 @@
 
 #ifndef GLDUALCAMVIEW_H
 #define GLDUALCAMVIEW_H
-
 #include <QObject>
 #include <QGLWidget>
 #include "opencv2\opencv.hpp"
@@ -10,6 +9,8 @@
 #include <QTimer>
 #include "..\CudaFilters\ISingleImageFilter.h"
 #include "FilterFactory.h"
+#include <QtOpenGL>
+#include <qopengl.h>
 
 class GLDualCamView :
 	public QGLWidget

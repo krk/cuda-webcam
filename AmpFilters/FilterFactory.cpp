@@ -1,6 +1,6 @@
 #include "FilterFactory.h"
 
-#include "common.h"
+#include "..\CudaFilters\common.h"
 
 #include "AmpInvertFilter.h"
 

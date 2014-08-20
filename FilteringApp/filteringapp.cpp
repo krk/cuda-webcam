@@ -1,6 +1,6 @@
 ﻿#include "filteringapp.h"
 
-FilteringApp::FilteringApp(QWidget *parent, Qt::WFlags flags)
+FilteringApp::FilteringApp(QWidget *parent, Qt::WindowFlags flags)
 	: QMainWindow(parent, flags)
 {
 	ui.setupUi(this);
