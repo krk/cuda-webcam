@@ -8,3 +8,7 @@ Process webcam images on the GPU with OpenCV, CUDA and C++ AMP
   - To use Qt5 UI, set FilteringApp project as startup project.  
   
   - For examples and description, see [code project article](http://www.codeproject.com/Articles/206036/Image-Filters-using-CPU-and-GPU)
+
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/krk/cuda-webcam/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
