@@ -1,143 +1,112 @@
-#include "GLDualCamView.h"
+ï»¿#include "GLDualCamView.h"
+
+using namespace cv;
 
 GLDualCamView::GLDualCamView(void)
 {
 }
 
 GLDualCamView::GLDualCamView(QWidget *parent)
-	: QGLWidget(parent)
+	: CQtOpenCVViewerGl(parent)
 {
 	isCaptureEnabled = false;
 	isProcessingEnabled = false;
 	_isFilterInited = false;
-	
-	_capture = 0;
-	_filter = 0;
 
-	// Ýlk tanýmlý kameranýn tutacaðýný al. (tutacak = handle).
-	_capture = cvCaptureFromCAM( 0 ); 
-	if( !_capture )
-	{
-		// Tutacak geçersiz ise programdan çýk.
-		qDebug() << "Kamera tutaca?? edinilemedi...\n";
-		return;
-	}
-
-	_rawFrame = 0;
-	_processedFrame = 0;
+	if (!_cap.isOpened())
+		if (!_cap.open(0))
+		{
+			qDebug() << "Kamera tutacagi edinilemedi.";
+			return;
+		}
 
 	/* Setup the timer. */
 	_timer = new QTimer();
 
-	connect(_timer, SIGNAL(timeout()), this, SLOT(captureFrame())); 
+	connect(_timer, SIGNAL(timeout()), this, SLOT(captureFrame()));
 
 	_timer->start(33); /* ~30fps */
 }
 
 GLDualCamView::~GLDualCamView(void)
 {
-	if(_capture != 0)
-		cvReleaseCapture( &_capture ); // Kameran?n tutaca??n? b?rak?r.
-
-	if(_filter != 0)
+	if (_filter != 0)
 		_filter->ReleaseFilter();
 
 	ReleaseCUDAThread();
 }
 
-void GLDualCamView::initializeGL()
-{
-	//Adjust the viewport
-	glViewport(0,0,this->width(), this->height());
-	
-	//Adjust the projection matrix
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(-this->width()/2, this->width()/2, this->height()/2, -this->height()/2, -1, 1);	
-}
-
-void GLDualCamView::resizeGL(int w, int h)
-{
-	glViewport(0, 0, (GLint)w, (GLint)h);
-}
-
-void GLDualCamView::paintGL()
-{
-	//Clear the color buffer
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	//Set the raster position	
-	glRasterPos2i(this->width()/2,-this->height()/2);
-	//Inver the image (the data coming from OpenCV is inverted)
-	glPixelZoom(-1.0f,-1.0f);
-
-	
-	// draw raw image
-	if(_rawFrame != 0 && isCaptureEnabled && !isProcessingEnabled)
-		glDrawPixels(_rawFrame->width, _rawFrame->height, GL_RGB, GL_UNSIGNED_BYTE, _rawFrame->imageData);		
-		
-	//Draw image from OpenCV capture
-	if(_processedFrame != 0 && isCaptureEnabled && isProcessingEnabled)
-		glDrawPixels(_processedFrame->width, _processedFrame->height, GL_RGB, GL_UNSIGNED_BYTE, _processedFrame->imageData);		
-}
-
 void GLDualCamView::changeFilter(vector<FilterFactory> filters)
-{	
-	if(_filter != 0)
+{
+	if (_filter != 0)
 		_filter->ReleaseFilter();
 
 	/* Save factories for use from GL thread. */
-	_filters = filters;	
+	_filters = filters;
 
 	_isFilterInited = false;
 }
 
 void GLDualCamView::captureFrame()
 {
-	if(!isCaptureEnabled)
+	if (!isCaptureEnabled)
 	{
-		glClear(GL_COLOR_BUFFER_BIT);		
+		glClear(GL_COLOR_BUFFER_BIT);
 		return;
 	}
 
-	_rawFrame = cvQueryFrame( _capture ); 
+	_cap >> _mat;
 
-	if( !_rawFrame )
+	if (_mat.empty())
+		return;
+
+	_processedMat = cv::Mat(_mat);
+
+	cv::resize(_mat, _processedMat, cv::Size(640, 480), 0, 0, INTER_CUBIC);
+
+	if (_processedMat.empty())
+		return;
+
+	if (isCaptureEnabled
+		&& isProcessingEnabled
+		&& !_isFilterInited)
 	{
-		qDebug() << "Kare yakalanamad?.";
-		return;
-	}
-	
-	if(_processedFrame == 0)
-		_processedFrame = cvCreateImage(cvSize(640, 480), _rawFrame->depth, _rawFrame->nChannels);
-
-	cvResize( _rawFrame, _processedFrame );
-
-	if( !_processedFrame )
-		return;
-	
-	if(isCaptureEnabled 
-		&& isProcessingEnabled 
-		&& !_isFilterInited)	
-	{			
 		/* BUG: Ayni threadde yaratilmasi icin burada create metodlari cagriliyor, texture iceren filtreler calismiyor! */
 		SingleImageFilterChain* chain = new SingleImageFilterChain();
-		for(vector<FilterFactory>::iterator it = _filters.begin(); it != _filters.end(); ++it) {
+		for (vector<FilterFactory>::iterator it = _filters.begin(); it != _filters.end(); ++it) {
 			chain->AppendFilter(it->Create(&(*it)));
 		}
 
 		_filter = chain;
 
-		_filter->InitFilter(_processedFrame->width, _processedFrame->height, _processedFrame->widthStep);
+		_filter->InitFilter(_processedMat.size().width, _processedMat.size().height, _processedMat.step.buf[0]);
 		_isFilterInited = true;
 	}
 
-	if(_filter != 0 
-		&& isCaptureEnabled 
+	if (_filter != 0
+		&& isCaptureEnabled
 		&& isProcessingEnabled)
 	{
-		_filter->FilterImage(_processedFrame->imageData);
+		_filter->FilterImage((char*) _processedMat.data);
 	}
 
-	updateGL();
+	// draw raw image
+	if (isCaptureEnabled && !isProcessingEnabled)
+	{
+		this->showImage(_mat);
+
+		/*QImage qtFrame(_mat.data, _mat.size().width, _mat.size().height, _mat.step.buf[0], QImage::Format_RGB888);
+		qtFrame = qtFrame.rgbSwapped();
+		renderImage(qtFrame);*/
+	}
+
+	// draw processed image
+	if (isCaptureEnabled && isProcessingEnabled)
+	{
+		this->showImage(_processedMat);
+
+		/*QImage qtFrame(_processedMat.data, _processedMat.size().width, _processedMat.size().height, _processedMat.step.buf[0], QImage::Format_RGB888);
+		qtFrame = qtFrame.rgbSwapped();
+		renderImage(qtFrame);*/
+	}
 }

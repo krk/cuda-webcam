@@ -11,9 +11,10 @@
 #include "FilterFactory.h"
 #include <QtOpenGL>
 #include <qopengl.h>
+#include "CQtOpenCVViewerGl.h"
 
 class GLDualCamView :
-	public QGLWidget
+	public CQtOpenCVViewerGl
 {
 	Q_OBJECT
 public:
@@ -25,20 +26,17 @@ public:
 	bool isProcessingEnabled;
 		
 	void changeFilter(vector<FilterFactory> filters);
-
-protected:
-     void initializeGL();
-	 void resizeGL(int w, int h);
-	 void paintGL();	 
-
+	
 private slots:
 	 void captureFrame();	 
 
 private:
-	 CvCapture* _capture;
-	 IplImage* _rawFrame;
-	 IplImage* _processedFrame;
+	 cv::VideoCapture _cap;
+	 cv::Mat _mat;
+	 cv::Mat _processedMat;
+
 	 QTimer* _timer;
+
 	 bool _isFilterInited;	 
 	 ISingleImageFilter* _filter;	
 	 vector<FilterFactory> _filters;
